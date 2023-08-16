@@ -125,13 +125,32 @@
             </nav>
         </nav>
             <nav class="right">
-                <button class="signin">Sign in</button>
-                <button class="freeacct">Create free account</button>
+                <button class="signin" onclick="log()">Sign in</button>
+                <button class="freeacct" onclick="sign()">Create free account</button>
             </nav>
           
         </header>
+        <section class="better">
+            <div class="way">
+                <h1>The Better Way to Save & Invest</h1>
+                <p>Piggyvest helps over 4 million customers achieve their financial 
+                    goals by helping them save and invest with ease.</p>
+                  <div class="way-flex">
+                    <div class="point"><img src="whiteAppleLogo.svg" alt="">  <span>Get on Iphone</span></div>
+                    <div class="point"><img src="whiteAppleLogo.svg" alt="">  <span>Get on Android</span></div>
+                  </div>  
+            </div>
+        </section>
     </main>
 </body>
 </html>
+<script>
+    function log() {
+        window.location.href = "login.html"
+    }
+    function sign() {
+        window.location.href = "sign.html"
+    }
+</script>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
