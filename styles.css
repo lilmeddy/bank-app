@@ -228,8 +228,18 @@ nav{
         transform: translateY(0);
     }
 }
+
 .security{
+    height: 40vh;
+    padding: 20px;
     background-color: #f2f7f8; 
+    display: flex;
+    align-items: center;
+    /* border: 5px solid black; */
+}
+.pri{
+    width: 50%;
+    margin-left: 20px;
 }
 .saving{
     width: 100%;
@@ -269,14 +279,45 @@ nav{
   .blue .abs{
     animation: phone  3s infinite;
   }
+  .grey,
+  .grey a{
+    color: rgb(106, 106, 250);
+  }
+  .grey:hover{
+    background-color:rgb(106, 106, 250) ;
+  }
   .grey .abs{
-    animation: phone  15s infinite;
+    animation: phone  9s  infinite;
+  }
+  .black,
+  .black a{
+    color: rgba(0, 128, 0, 0.897);
+  }
+  .black:hover{
+    background-color:rgba(0, 128, 0, 0.897);
   }
   .black .abs{
-    animation: phone  27s infinite;
+    animation: phone  12s infinite;
+  }
+  .red,
+  .red a{
+    color: fuchsia;
+  }
+  .red:hover{
+    background-color:fuchsia;
   }
   .red .abs{
-    animation: phone  s infinite;
+    animation: phone  15s infinite;
+  }
+  .last,
+  .last a{
+    color: rgba(0, 0, 0, 0.829);
+  }
+  .last:hover{
+    background-color:rgba(0, 0, 0, 0.829);
+  }
+  .last .abs{
+    animation: phone  18s infinite;
   }
   .blue:hover{
       background-color:blue; 
