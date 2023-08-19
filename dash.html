@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dash.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+        <aside class="aside">
+            
+                <div class="top">
+                    <i class="bx bx-menu" id="bot"></i>
+                    <div class="logo">
+                        <img src="https://dashboard.piggyvest.com/static/media/piggyvest-logo.0b78a8fa.svg" alt="">
+                    </div>
+                   
+                </div>
+                <ul class="ull">
+                    <li class="lii">
+                        <a href="" class=" sap">
+                        <i class='bx bxs-home'></i>
+                            <span class="nav-item">Home</span>
+                        </a>
+                    </li>
+        
+                    <li class="lii">
+                        <a href="save.html" class=" sap save">
+                            <i class='bx bx-target-lock'></i>
+                            <span class="nav-item">Savings</span>
+                        </a>
+                    </li>
+        
+                    <li class="lii">
+                        <a href="" class=" sap">
+                            <i class='bx bxs-rocket'></i>
+                            <span class="nav-item">Invest</span>
+                        </a>
+                    </li>
+        
+                    <li class="lii">
+                        <a href="account.html" class=" sap">
+                            <i class='bx bx-user'></i>
+                            <span class="nav-item">Account</span>
+                        </a>
+                    </li>
+        
+                    <li class="lii move">
+                        <a href="Login.html" class=" sap">
+                            <i class='bx bx-power-off'></i>
+                            <span class="nav-item">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+           
+        </aside>
+        <main></main>
+</body>
+</html>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+ <script>
+    let bot = document.querySelector('#bot');
+    let aside = document.querySelector('.aside');
+
+    bot.onclick = function(){
+        aside.classList.toggle('active');
+    };
+</script>
