@@ -25,7 +25,7 @@ aside {
     width: 80px;
     /* text-align: center; */
     height: 100vh;
-    position: sticky;
+    position: fixed;
     padding: 0.4rem 0.8rem;
     transition: all 0.5s ease;
     background-color: #062863;
@@ -126,12 +126,12 @@ main{
     min-height: 100vh;
     top: 0;
     left: 80px;
-/* position: absolute; */
-/* box-sizing: border-box; */
+    border: 1px solid firebrick;
     transition: all 0.5s ease;
     width: calc(100% - 80px);
     padding: .5rem 1rem;
 }
+
 .bxs-user-circle{
     font-size: 40px;
 }
@@ -145,9 +145,64 @@ main{
 .bxs-low-vision{
     font-size: 40px;
 }
-.nam{
+.row .nam{
     background-color: #045cd2;
     border-bottom-left-radius: 0px;
     margin-bottom: 14px;
     color: white;
+    margin-left: 10px;
+}
+.overflow {
+    /* border: 1px solid blue; */
+    margin: auto;
+    overflow-x: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 95%;
+    max-width: 100%;
+    overflow-y: hidden;
+}
+
+.blac {
+    color: #fff;
+    min-width: 245px;
+    padding: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    height: 120px;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    background-color: black;
+}
+
+.text {
+    height: 100%;
+    width: 65%;
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* border: 1px solid red; */
+    /* align-items: center; */
+    padding-left: 10px;
+}
+
+.blac h1 {
+    font-size: 20px;
+    margin-bottom: -1px;
+    color: grey;
+}
+
+.blac p {
+    font-size: 25px;
+}
+
+.icon i {
+    font-size: 55px;
 }
