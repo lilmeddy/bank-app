@@ -30,7 +30,7 @@ aside {
 }
 
 
-aside.active~.main-content {
+aside.active~.main {
     left: 15%;
     width: calc(100% - 15%);
 }
@@ -121,8 +121,18 @@ main{
     min-height: 100vh;
     top: 0;
     left: 80px;
-    
+
     transition: all 0.5s ease;
-    width: calc(100% - 15%);
-    /* padding: .5rem 1rem; */
+    width: calc(100% - 80px);
+    padding: .5rem 1rem;
+}
+.bxs-user-circle{
+    font-size: 40px;
+}
+.name h1{
+    font-size: 30px;
+    font-weight: 700;
+}
+.name p{
+    font-size: 14px;
 }

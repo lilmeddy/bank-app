@@ -11,8 +11,8 @@
 <body>
         <aside class="aside">
             
-                <div class="top">
-                    <i class="bx bx-menu" id="bot"></i>
+                <div class="top" style="padding-top: 15px;">
+                    <i class="bx bx-menu" id="bot" style="padding-top: 15px;"></i>
                     <div class="logo">
                         <img src="https://dashboard.piggyvest.com/static/media/piggyvest-logo.0b78a8fa.svg" alt="">
                     </div>
@@ -56,7 +56,7 @@
                 </ul>
            
         </aside>
-        <main>
+        <main class="main">
                 <section class="section1">
                     <div class="d-flex align-items-center justify-content-between mt-3">
                         <div class="name">
@@ -78,8 +78,9 @@
  <script>
     let bot = document.querySelector('#bot');
     let aside = document.querySelector('.aside');
-
+   
     bot.onclick = function(){
         aside.classList.toggle('active');
+       
     };
 </script>
