@@ -1,103 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="sign.css">
     <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
-<section>
-    <div id="first">
-<main class="content">
-    <h1>Create a Secure Account</h1>
-    <p>Welcome to the future of Savings & Investments</p>
-    <form>
-        <div class="form-txt">
-            <label for="Text">First Name</label> <br>
-            <input type="Text" id="first">
-        </div>
-        <div class="form-txt">
-            <label for="Text">Last Name</label> <br>
-            <input type="Text" id="text">
-        </div>
-        <div class="form-txt">
-            <label for="Email">Email Address</label> <br>
-            <input type="Email" id="email">
-        </div>
-        <div class="form-txt">
-            <label for="password">Password</label> <br>
-            <input type="password" id="password">
-        </div>
+    <section>
+        <div id="one">
+            <main class="content">
+                <h1>Create a Secure Account</h1>
+                <p>Welcome to the future of Savings & Investments</p>
+                <form>
+                    <div class="form-txt">
+                        <label for="Text">First Name</label> <br>
+                        <input type="Text" id="first">
+                    </div>
+                    <div class="form-txt">
+                        <label for="Text">Last Name</label> <br>
+                        <input type="Text" id="text">
+                    </div>
+                    <div class="form-txt">
+                        <label for="Email">Email Address</label> <br>
+                        <input type="Email" id="email">
+                    </div>
+                    <div class="form-txt">
+                        <label for="password">Password</label> <br>
+                        <input type="password" id="password">
+                    </div>
 
-        <div class="form-txt">
-            <label for="Referrer">Referrer Phone or Promo Code (Optional)</label> <br>
-            <input type="number" id="referrer">
+                    <div class="form-txt">
+                        <label for="Referrer">Referrer Phone or Promo Code (Optional)</label> <br>
+                        <input type="number" id="referrer">
+                    </div>
+                </form>
+                <button onclick="create()">CREATE ACCOUNT</button>
+            </main>
+            <div class="a-tag">
+                <a href="login.html">Already have an account? Log In</a> <br><br><br><br>
+            </div>
         </div>
-    </form>
-    <button onclick="create()">CREATE ACCOUNT</button>
-</main>
-<div class="a-tag">
-    <a href="login.html">Already have an account? Log In</a> <br><br><br><br>
-</div>
-</div>
-<div id="second">
+        <div id="second">
+            <main class="content">
+                <h1>Register Your Account</h1>
+                <p>Here is your Account Number:</p>
+                <h1 id="accNumber" style="margin-top: 10px;"></h1>
+                <form>
+                    <div class="form-txt">
+                        <label for="Text">Pin</label> <br>
+                        <input type="password" id="pin">
+                    </div>
+                    <div class="form-txt">
+                        <label for="Text">Confirm Pin</label> <br>
+                        <input type="password" id="confirmPin">
+                    </div>
+                </form>
+                <button onclick="register()">Register</button>
+            </main>
+        </div>
+    </section>
 
-</div>
-</section>
-<main class="content">
-    <h1>Register Your Account</h1>
-    <p>Here is your Account Number.</p>
-    <form>
-        <div class="form-txt">
-            <label for="Text">Pin</label> <br>
-            <input type="Text" id="pin">
-        </div>
-        <div class="form-txt">
-            <label for="Text">Confirm Pin</label> <br>
-            <input type="Text" id="confirmPin">
-        </div>
-    </form>
-    <button onclick="create()">CREATE ACCOUNT</button>
-</main>
 </body>
+
 </html>
+
 <script>
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCZRt5ZugU3gYBuKEWAAdbgdtCoIuizGJ4",
-  authDomain: "bank-56c80.firebaseapp.com",
-  projectId: "bank-56c80",
-  storageBucket: "bank-56c80.appspot.com",
-  messagingSenderId: "278093243224",
-  appId: "1:278093243224:web:268d9c364c7d4e5f577b2d"
-};
-
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+    
+    const firebaseConfig = {
+        apiKey: "AIzaSyCZRt5ZugU3gYBuKEWAAdbgdtCoIuizGJ4",
+        authDomain: "bank-56c80.firebaseapp.com",
+        projectId: "bank-56c80",
+        storageBucket: "bank-56c80.appspot.com",
+        messagingSenderId: "278093243224",
+        appId: "1:278093243224:web:268d9c364c7d4e5f577b2d"
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 </script>
 <script>
+
+    let one = document.getElementById("one")
+    let second = document.getElementById("second")
+    let pin = document.getElementById("pin")
+    let confirmPin = document.getElementById("confirmPin")
+    let accNumber = document.getElementById("accNumber")
     let email = document.getElementById("email")
     let first = document.getElementById("first")
     let password = document.getElementById("password")
-    function create(ev){
+    let randomNumber = Math.floor(Math.random() * 40000000000)
+
+    accNumber.innerHTML = randomNumber
+    function create(ev) {
         event.preventDefault(ev)
-firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
-  .then((userCredential ) => {
-    // Signed in 
-    var user = userCredential.user;
-    
-    alert("successful")
-    window.location.href="login.html"
-    // ...
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    alert(errorMessage)
-    // ..
-  });
+        firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
+            .then((userCredential) => {
+                // Signed in 
+                var user = userCredential.user;
+
+                alert("successful")
+                // window.location.href="login.html"
+
+                // ...
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert(errorMessage)
+                // ..
+            });
     }
+    function register(ev) {
+        event.preventDefault(ev);
+        // Add a new document in collection "cities"
+        db.collection("post")
+        .doc()
+        .set({
+            name: first.value,
+            account: randomNumber,
+            pin: pin.value
+        })
+            .then(() => {
+                console.log("Document successfully written!");
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+    }
+
 </script>
