@@ -7,7 +7,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="sign.css">
     <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
@@ -55,12 +56,12 @@
                         <label for="Text">Pin</label> <br>
                         <input type="password" id="pin">
                     </div>
-                    <div class="form-txt">
+                    <!-- <div class="form-txt">
                         <label for="Text">Confirm Pin</label> <br>
                         <input type="password" id="confirmPin">
-                    </div>
+                    </div> -->
                 </form>
-                <button onclick="register()">Register</button>
+                <button onclick="reg()">Register</button>
             </main>
         </div>
     </section>
@@ -82,8 +83,9 @@
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 </script>
-<script>
 
+
+<script>
     let one = document.getElementById("one")
     let second = document.getElementById("second")
     let pin = document.getElementById("pin")
@@ -93,15 +95,16 @@
     let first = document.getElementById("first")
     let password = document.getElementById("password")
     let randomNumber = Math.floor(Math.random() * 40000000000)
-
     accNumber.innerHTML = randomNumber
+    second.style.display ="none"
     function create(ev) {
         event.preventDefault(ev)
         firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
             .then((userCredential) => {
                 // Signed in 
                 var user = userCredential.user;
-
+                one.style.display = "none"
+                second.style.display ="block"
                 alert("successful")
                 // window.location.href="login.html"
 
@@ -114,10 +117,11 @@
                 // ..
             });
     }
-    function register(ev) {
+    function reg(ev) {
+        console.log("jfj");
         event.preventDefault(ev);
         // Add a new document in collection "cities"
-        db.collection("post")
+        db.collection("account")
         .doc()
         .set({
             name: first.value,
@@ -125,6 +129,7 @@
             pin: pin.value
         })
             .then(() => {
+            window.location.href ="login.html"
                 console.log("Document successfully written!");
             })
             .catch((error) => {
