@@ -24,7 +24,7 @@
                     </div>
                     <div class="form-txt">
                         <label for="Text">Last Name</label> <br>
-                        <input type="Text" id="text">
+                        <input type="Text" id="last">
                     </div>
                     <div class="form-txt">
                         <label for="Email">Email Address</label> <br>
@@ -93,12 +93,14 @@
     let accNumber = document.getElementById("accNumber")
     let email = document.getElementById("email")
     let first = document.getElementById("first")
+    let last = document.getElementById("last")
     let password = document.getElementById("password")
     let randomNumber = Math.floor(Math.random() * 40000000000)
     accNumber.innerHTML = randomNumber
     second.style.display ="none"
     function create(ev) {
         event.preventDefault(ev)
+        // first.value !== ""  
         firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
             .then((userCredential) => {
                 // Signed in 
@@ -106,9 +108,7 @@
                 one.style.display = "none"
                 second.style.display ="block"
                 alert("successful")
-                // window.location.href="login.html"
-
-                // ...
+                
             })
             .catch((error) => {
                 var errorCode = error.code;
@@ -126,7 +126,9 @@
         .set({
             name: first.value,
             account: randomNumber,
-            pin: pin.value
+            pin: pin.value,
+            last: last.value,
+            balance: "₦1500000"
         })
             .then(() => {
             window.location.href ="login.html"
