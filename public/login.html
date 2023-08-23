@@ -26,7 +26,7 @@
                 </div>
             </form>
             <!-- <a href="dashboard.html"> -->
-            <button onclick="log(ev)">Log In</button>
+            <button onclick="log()">Log In</button>
             <!-- </a> -->
         </main>
         <div class="a-tag">
@@ -54,8 +54,8 @@
 <script>
         let email = document.getElementById("email")
     let password = document.getElementById("password")
-      function log(ev){
-        event.preventDefault(ev)
+      function log(){
+        // event.preventDefault(ev)
         firebase.auth().signInWithEmailAndPassword(email.value, password.value)
   .then((userCredential) => {
     // Signed in
@@ -66,6 +66,7 @@
   .catch((error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
+    alert(errorMessage)
   });
       }
 </script>
