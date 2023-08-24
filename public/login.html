@@ -11,7 +11,7 @@
 </head>
 <body>
     <section>
-        <main class="content">
+        <main class="content" id="block">
             <h1>Login to your account</h1>
             <p>Securely login to your PiggyVest</p>
             <form>
@@ -33,6 +33,7 @@
             <a href="sign.html">Don't have an account? Register</a> <br><br>
             <a href="">Forgot Password?</a>
         </div>
+        <i class='bx bx-rotate-right bx-spin bx-rotate-90' id="none" ></i>
     </section>
     
 </body>
@@ -54,11 +55,17 @@
 <script>
         let email = document.getElementById("email")
     let password = document.getElementById("password")
+    let block = document.getElementById("block")
+    let none = document.getElementById("none")
+    none.style.display ="none"
       function log(){
+        none.style.display ="block"
+        block.style.display ="none"
         // event.preventDefault(ev)
         firebase.auth().signInWithEmailAndPassword(email.value, password.value)
   .then((userCredential) => {
     // Signed in
+    none.style.display ="none"
     var user = userCredential.user;
     window.location.href ="dash.html"
     // ...

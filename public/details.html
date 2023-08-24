@@ -12,10 +12,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
-    <section >
+    <section  >
         <main class="content" id="screen">
 
         </main>
+        <div id="scrn" style=" font-size: 150px; width: 20%; height: 50%; margin: 200px auto;">
+            <i class='bx bx-rotate-right bx-spin bx-rotate-90' style="color: #fff;"></i>
+        </div>
     </section>
 </body>
 </html>
@@ -36,10 +39,15 @@
 
  <script>
     let screen = document.getElementById("screen")
+    let scrn = document.getElementById("scrn")
+    scrn.style.display= "block"
+    screen.style.display="none"
     db.collection("account")
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
+            scrn.style.display="none"
+            screen.style.display= "block"
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
             // raydee.innerHTML =` ${doc.data().balance}`
