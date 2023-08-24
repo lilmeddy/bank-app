@@ -95,6 +95,7 @@
     let first = document.getElementById("first")
     let last = document.getElementById("last")
     let password = document.getElementById("password")
+    let number = document.getElementById("number")
     let randomNumber = Math.floor(Math.random() * 40000000000)
     accNumber.innerHTML = randomNumber
     second.style.display ="none"
@@ -128,7 +129,9 @@
             account: randomNumber,
             pin: pin.value,
             last: last.value,
-            balance: "₦1500000"
+            mail : email.value,
+            balance: "₦1500000",
+            number:number.value
         })
             .then(() => {
             window.location.href ="login.html"
