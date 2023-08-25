@@ -209,8 +209,7 @@ main{
     font-size: 55px;
 }
 #transferr,
-#payment,
-#trans{
+#payment{
     position:absolute;
     top:0;
     left: 75%;

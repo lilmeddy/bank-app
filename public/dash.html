@@ -282,7 +282,7 @@
                 const accountName = accountData.name; 
                 const accountLast = accountData.last;
                 console.log(accountData); 
-                showName.textContent = `Account Holder: ${accountName} ${accountLast}`;
+                showName.textContent = `<i class='bx bx-check'></i> ${accountName} ${accountLast}`;
             } else {
                 showName.textContent = "Account not found.";
             }
@@ -292,6 +292,10 @@
         });
 }
 
+function pay(){
+    transferr.style.display ="none"
+    payment.style.display ="block"
+}
 
 
 
