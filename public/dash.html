@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,190 +10,207 @@
     <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore-compat.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
+
 <body>
     <div id="scrn" style=" font-size: 150px; width: 20%; height: 50%; margin: 200px auto;">
         <i class='bx bx-rotate-right bx-spin bx-rotate-90' style="color: blue;"></i>
     </div>
-            <aside class="aside" id="load">
-            
-                <div class="top" style="padding-top: 15px;">
-                    <i class="bx bx-menu" id="bot" style="padding-top: 15px;"></i>
-                    <div class="logo">
-                        <img src="https://dashboard.piggyvest.com/static/media/piggyvest-logo.0b78a8fa.svg" alt="">
-                    </div>
-                   
+    <aside class="aside" id="load">
+
+        <div class="top" style="padding-top: 15px;">
+            <i class="bx bx-menu" id="bot" style="padding-top: 15px;"></i>
+            <div class="logo">
+                <img src="https://dashboard.piggyvest.com/static/media/piggyvest-logo.0b78a8fa.svg" alt="">
+            </div>
+
+        </div>
+        <ul class="ul">
+            <li class="li">
+                <a href="" class=" sap">
+                    <i class='bx bxs-home'></i>
+                    <span class="nav-item">Home</span>
+                </a>
+            </li>
+
+            <li class="li">
+                <a href="save.html" class=" sap save">
+                    <i class='bx bx-target-lock'></i>
+                    <span class="nav-item">Savings</span>
+                </a>
+            </li>
+
+            <li class="li">
+                <a href="" class=" sap">
+                    <i class='bx bxs-rocket'></i>
+                    <span class="nav-item">Invest</span>
+                </a>
+            </li>
+
+            <li class="li">
+                <a href="account.html" class=" sap">
+                    <i class='bx bx-user'></i>
+                    <span class="nav-item">Account</span>
+                </a>
+            </li>
+
+            <li class="li move">
+                <a href="Login.html" class=" sap">
+                    <i class='bx bx-power-off'></i>
+                    <span class="nav-item">Logout</span>
+                </a>
+            </li>
+        </ul>
+
+    </aside>
+    <main class="main" id="screen">
+        <section class="section1">
+            <div class="d-flex align-items-center justify-content-between mt-3">
+                <div class="name">
+                    <h1 id="lastName"></h1>
+                    <p>wash your hands, it's lunch time 🍛!</p>
                 </div>
-                <ul class="ul">
-                    <li class="li">
-                        <a href="" class=" sap">
-                        <i class='bx bxs-home'></i>
-                            <span class="nav-item">Home</span>
-                        </a>
-                    </li>
-        
-                    <li class="li">
-                        <a href="save.html" class=" sap save">
-                            <i class='bx bx-target-lock'></i>
-                            <span class="nav-item">Savings</span>
-                        </a>
-                    </li>
-        
-                    <li class="li">
-                        <a href="" class=" sap">
-                            <i class='bx bxs-rocket'></i>
-                            <span class="nav-item">Invest</span>
-                        </a>
-                    </li>
-        
-                    <li class="li">
-                        <a href="account.html" class=" sap">
-                            <i class='bx bx-user'></i>
-                            <span class="nav-item">Account</span>
-                        </a>
-                    </li>
-        
-                    <li class="li move">
-                        <a href="Login.html" class=" sap">
-                            <i class='bx bx-power-off'></i>
-                            <span class="nav-item">Logout</span>
-                            </a>
-                    </li>
-                </ul>
-           
-        </aside>
-        <main class="main" id="screen">
-                <section class="section1">
-                    <div class="d-flex align-items-center justify-content-between mt-3">
-                        <div class="name">
-                            <h1 id="lastName"></h1>
-                            <p>wash your hands, it's lunch time 🍛!</p>
-                        </div>
-                        <div>
-                            <a href="details.html" class="btn">
-                                <i class='bx bxs-user-circle bx-burst' style='color:#045dd4' id="photo"></i>
-                            </a>
-                        </div>
-                    
-                </section>
-                <section>
-                    <div class="row">
-                        <div class="col-lg-1">
-                            <i class='bx bxs-low-vision bx-tada' ></i>
-                        </div>
-                        <div class="col-lg-11 text-end">
-                            <a href="" class="btn nam" id="transaction">Transaction History</a>
-                            <a href="" class="btn nam" id="fund">Fund</a>
-                            <a href="" class="btn nam" id="transfer">Transfer</a>
-                            <a href="" class="btn nam" id="airtime">Buy Airtime</a>
-                            <a href="" class="btn nam" id="save">+ QUICK SAVE</a>
-                        </div>
-                    </div>
-                </section>
-                <section class="overflow">
-                    <div class="blac" style="background-color:rgba(86, 16, 216, 0.726) ;">
-                    <div class="icon">  
-                        <i>@</i>
-                       </div>
-                       <div class="text">
-                           <h1 id="firstName"></h1>
-                           <p id="raydee"></p>
-                       </div>
-                  </div>
-                   <div class="blac" style="background-color:rgb(16,98,216) ;">
-                    <div class="icon">  
-                         <i class='bx bx-shield' style='color:#fff' ></i>
-                        </div>
-                        <div class="text">
-                            <h1>Total Savings</h1>
-                            <p id="saving">₦14.28</p>
-                        </div>
-                   </div>
-                   <div class="blac" style="background-color:rgb(121, 19, 212);">
-                    <div class="icon">  
-                        <i class='bx bx-line-chart'></i>
-                        </div>
-                        <div class="text">
-                            <h1>Total Investments</h1>
-                            <p id="invest">₦14.28</p>
-                        </div>
-                   </div>
-                   <div class="blac" style="background-color: rgba(8, 8, 8, 0.89);">
-                    <div class="icon">  
-                        <i class='bx bx-dollar'></i>
-                        </div>
-                        <div class="text">
-                            <h1>Flex Dollars</h1>
-                            <p id="dollar">₦14.28</p>
-                        </div>
-                   </div>
-                   <div class="blac" style="background-color: #fff;color: rgb(231,67,156); border: 1px solid #fff">
-                    <div class="icon">  
-                        <i class='bx bxs-wallet'></i>
-                        </div>
-                        <div class="text">
-                            <h1>Flex Naira</h1>
-                            <p id="naira">₦14.28</p>
-                        </div>
-                   </div>
-                  
-                </section>
-                <section class="list-flex">
-                    <div class="todo">
-                        
-                    </div>
-                    <div class="best"></div>
-                </section>
-
-                <section id="transfer">
-                   <div class="right">
-                    <button onclick="back()"><i class='bx bx-chevron-left bx-flashing' ></i></button>
-                    <p>Transfer to PiggyVest Account</p>
-                   </div>
-                    <div class="left">
-                        <button onclick="his()">History</button>
-                    </div>
-                    <div class="recipeient">
-                        <input id="digits" type="number" placeholder="Enter 10 digits Account Number">
-                        <h1 id="showName"></h1>
-                        <button onclick="pay()" id="">Next</button>
-                    </div>
-                  </section>
-
-                  <section id="payment">
-                       <div><img src="./Images/logo.svg" alt=""></div>
-                       <h1 id="payName"></h1>
-                       <p>PiggyVest(<span id="payAcc"></span>)</p>
-                       <label for="">Amount</label>
-                       <div><span>₦</span><input type="number" id="payAmt" placeholder="100.00-5,000,000.00"></div>
-                 <label for="">Remark</label><br>
-                 <input type="text" placeholder="What's this for?(Optional)"><br>
-                 <button onclick="showPin()">Confirm</button>
-
-
-                <div id="trans">
-                    
-                        <button onclick="bac()"><i class='bx bx-chevron-left bx-flashing' ></i></button>
-                        <div class="payFlex"><p>Bank</p><h1>PiggyVest</h1></div>
-                        <div class="payFlex"><p>Account Number</p><h1 id="tranNum"></h1></div>
-                        <div class="payFlex"><p>Name</p><h1 id="tranNam"></h1></div>
-                        <div class="payFlex"><p>Amount</p><h1 id="tranAmount"></h1></div>
-                        <div><p>Payment method</p></div>
-                        <div id="method"></div>
-                        <button onclick="finalPay()">Pay</button>
+                <div>
+                    <a href="details.html" class="btn">
+                        <i class='bx bxs-user-circle bx-burst' style='color:#045dd4' id="photo"></i>
+                    </a>
                 </div>
-                <div id="reciept">
 
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-lg-1">
+                    <i class='bx bxs-low-vision bx-tada'></i>
                 </div>
-                    </section>
-        </main>
-      
+                <div class="col-lg-11 text-end">
+                    <a href="" class="btn nam" id="transaction">Transaction History</a>
+                    <a href="" class="btn nam" id="fund">Fund</a>
+                    <a href="" class="btn nam" id="transfer">Transfer</a>
+                    <a href="" class="btn nam" id="airtime">Buy Airtime</a>
+                    <a href="" class="btn nam" id="save">+ QUICK SAVE</a>
+                </div>
+            </div>
+        </section>
+        <section class="overflow">
+            <div class="blac" style="background-color:rgba(86, 16, 216, 0.726) ;">
+                <div class="icon">
+                    <i>@</i>
+                </div>
+                <div class="text">
+                    <h1 id="firstName"></h1>
+                    <p id="raydee"></p>
+                </div>
+            </div>
+            <div class="blac" style="background-color:rgb(16,98,216) ;">
+                <div class="icon">
+                    <i class='bx bx-shield' style='color:#fff'></i>
+                </div>
+                <div class="text">
+                    <h1>Total Savings</h1>
+                    <p id="saving">₦14.28</p>
+                </div>
+            </div>
+            <div class="blac" style="background-color:rgb(121, 19, 212);">
+                <div class="icon">
+                    <i class='bx bx-line-chart'></i>
+                </div>
+                <div class="text">
+                    <h1>Total Investments</h1>
+                    <p id="invest">₦14.28</p>
+                </div>
+            </div>
+            <div class="blac" style="background-color: rgba(8, 8, 8, 0.89);">
+                <div class="icon">
+                    <i class='bx bx-dollar'></i>
+                </div>
+                <div class="text">
+                    <h1>Flex Dollars</h1>
+                    <p id="dollar">₦14.28</p>
+                </div>
+            </div>
+            <div class="blac" style="background-color: #fff;color: rgb(231,67,156); border: 1px solid #fff">
+                <div class="icon">
+                    <i class='bx bxs-wallet'></i>
+                </div>
+                <div class="text">
+                    <h1>Flex Naira</h1>
+                    <p id="naira">₦14.28</p>
+                </div>
+            </div>
+
+        </section>
+        <section class="list-flex">
+            <div class="todo">
+
+            </div>
+            <div class="best"></div>
+        </section>
+
+        <section id="transferr">
+            <div class="right">
+                <button onclick="back()"><i class='bx bx-chevron-left bx-flashing'></i></button>
+                <p>Transfer to PiggyVest Account</p>
+            </div>
+            <div class="left">
+                <button onclick="his()">History</button>
+            </div>
+            <div class="recipeient">
+                <input id="digits" type="number" placeholder="Enter 10 digits Account Number">
+                <h1 id="showName"></h1>
+                <button onclick="pay()" id="">Next</button>
+            </div>
+        </section>
+
+        <section id="payment">
+            <div><img src="./Images/logo.svg" alt=""></div>
+            <h1 id="payName"></h1>
+            <p>PiggyVest(<span id="payAcc"></span>)</p>
+            <label for="">Amount</label>
+            <div><span>₦</span><input type="number" id="payAmt" placeholder="100.00-5,000,000.00"></div>
+            <label for="">Remark</label><br>
+            <input type="text" placeholder="What's this for?(Optional)"><br>
+            <button onclick="showPin()">Confirm</button>
+
+
+            <div id="trans">
+
+                <button onclick="bac()"><i class='bx bx-chevron-left bx-flashing'></i></button>
+                <div class="payFlex">
+                    <p>Bank</p>
+                    <h1>PiggyVest</h1>
+                </div>
+                <div class="payFlex">
+                    <p>Account Number</p>
+                    <h1 id="tranNum"></h1>
+                </div>
+                <div class="payFlex">
+                    <p>Name</p>
+                    <h1 id="tranNam"></h1>
+                </div>
+                <div class="payFlex">
+                    <p>Amount</p>
+                    <h1 id="tranAmount"></h1>
+                </div>
+                <div>
+                    <p>Payment method</p>
+                </div>
+                <div id="method"></div>
+                <button onclick="finalPay()">Pay</button>
+            </div>
+            <div id="reciept">
+
+            </div>
+        </section>
+    </main>
+
 </body>
+
 </html>
 
 <script>
-    
+
     const firebaseConfig = {
         apiKey: "AIzaSyCZRt5ZugU3gYBuKEWAAdbgdtCoIuizGJ4",
         authDomain: "bank-56c80.firebaseapp.com",
@@ -212,6 +230,7 @@
     let scrn = document.getElementById("scrn")
     let load = document.getElementById("load")
     let transfer = document.getElementById("transfer")
+    let transferr = document.getElementById("transferr")
     let digits = document.getElementById("digits")
     let showName = document.getElementById("showName")
     let payment = document.getElementById("payment")
@@ -224,38 +243,40 @@
     let tranAmount = document.getElementById("tranAmount")
     let method = document.getElementById("method")
     let reciept = document.getElementById("reciept")
-    scrn.style.display= "block"
-    screen.style.display="none"
-    load.style.display="none"
+    scrn.style.display = "block"
+    screen.style.display = "none"
+    load.style.display = "none"
     db.collection("account")
-    .get()
-    .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            scrn.style.display="none"
-            screen.style.display= "block"
-            load.style.display= "block"
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            lastName.innerHTML =` ${doc.data().last}`
-            firstName.innerHTML =` ${doc.data().name} pocket`
-            raydee.innerHTML =` ${doc.data().balance}`
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                scrn.style.display = "none"
+                screen.style.display = "block"
+                load.style.display = "block"
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                lastName.innerHTML = ` ${doc.data().last}`
+                firstName.innerHTML = ` ${doc.data().name} pocket`
+                raydee.innerHTML = ` ${doc.data().balance}`
+            });
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
         });
-    })
-    .catch((error) => {
-        console.log("Error getting documents: ", error);
-    });
 
 
 
 </script>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
- <script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+<script>
     let bot = document.querySelector('#bot');
     let aside = document.querySelector('.aside');
-   
-    bot.onclick = function(){
+
+    bot.onclick = function () {
         aside.classList.toggle('active');
-       
+
     };
 </script>
