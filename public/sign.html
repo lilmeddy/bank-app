@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="sign.css">
-    <script src="ic.com/firebasejs/https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstat10.2.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore-compat.js"></script>
 </head>
 
@@ -29,6 +29,10 @@
                     <div class="form-txt">
                         <label for="Email">Email Address</label> <br>
                         <input type="Email" id="email">
+                    </div>
+                    <div class="form-txt">
+                        <label for="Email">Phone Number</label> <br>
+                        <input type="number" id="number">
                     </div>
                     <div class="form-txt">
                         <label for="password">Password</label> <br>
@@ -119,7 +123,7 @@
             });
     }
     function reg(ev) {
-        console.log("jfj");
+        // console.log("jfj");
         event.preventDefault(ev);
         // Add a new document in collection "cities"
         db.collection("account")

@@ -85,11 +85,11 @@
                     <i class='bx bxs-low-vision bx-tada'></i>
                 </div>
                 <div class="col-lg-11 text-end">
-                    <a href="" class="btn nam" id="transaction">Transaction History</a>
-                    <a href="" class="btn nam" id="fund">Fund</a>
-                    <a href="" class="btn nam" id="transfer">Transfer</a>
-                    <a href="" class="btn nam" id="airtime">Buy Airtime</a>
-                    <a href="" class="btn nam" id="save">+ QUICK SAVE</a>
+                    <p    class="btn nam" id="transaction">Transaction History</p>
+                    <p   class="btn nam" id="fund">Fund</p>
+                    <button onclick="myTransfer()" style="background-color: transparent;border: none;"><p  class="btn nam" >Transfer</p></button>
+                    <p   class="btn nam" id="airtime">Buy Airtime</p>
+                    <p   class="btn nam" id="save">+ QUICK SAVE</p>
                 </div>
             </div>
         </section>
@@ -157,7 +157,8 @@
                 <button onclick="his()">History</button>
             </div>
             <div class="recipeient">
-                <input id="digits" type="number" placeholder="Enter 10 digits Account Number">
+                <div><input id="digits" type="number" placeholder="Enter 10 digits Account Number">
+                <button onclick="show()"><i class='bx bx-check'></i></button></div>
                 <h1 id="showName"></h1>
                 <button onclick="pay()" id="">Next</button>
             </div>
@@ -246,6 +247,7 @@
     scrn.style.display = "block"
     screen.style.display = "none"
     load.style.display = "none"
+     
     db.collection("account")
         .get()
         .then((querySnapshot) => {
@@ -254,7 +256,7 @@
                 screen.style.display = "block"
                 load.style.display = "block"
                 // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
+                // console.log(doc.id, " => ", doc.data());
                 lastName.innerHTML = ` ${doc.data().last}`
                 firstName.innerHTML = ` ${doc.data().name} pocket`
                 raydee.innerHTML = ` ${doc.data().balance}`
@@ -263,8 +265,37 @@
         .catch((error) => {
             console.log("Error getting documents: ", error);
         });
+    // transfer.addEventListener("click",myTransfer);
+    function myTransfer(){
+           transferr.style.display ="block"
+    }
+    function show(){
+       showName.innerHTML=`
+       <i class='bx bx-rotate-right bx-spin'></i>`
+    let accountNumber = parseInt(digits.value); 
+    db.collection("account")
+        .where("account", "==", accountNumber)
+        .get()
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                const accountData = querySnapshot.docs[0].data();
+                const accountName = accountData.name; 
+                const accountLast = accountData.last;
+                console.log(accountData); 
+                showName.textContent = `Account Holder: ${accountName} ${accountLast}`;
+            } else {
+                showName.textContent = "Account not found.";
+            }
+        })
+        .catch((error) => {
+            console.log("Error checking account: ", error);
+        });
+}
 
 
+
+
+   
 
 </script>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>

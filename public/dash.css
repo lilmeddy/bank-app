@@ -213,8 +213,13 @@ main{
 #trans{
     position:absolute;
     top:0;
-    left: 80%;
+    left: 75%;
+    display: none;
     background-color: #fff;
     height: 100%;
-    width: 40%;
+    width: 25%;
+    padding: 15px;
+    transition: 3s all ease-in-out;
+    box-shadow: 2px 4px 4px 4px rgba(0,0,0,0.5);
+    /* text-align: center; */
 }
