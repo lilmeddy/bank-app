@@ -161,8 +161,31 @@
                   </section>
 
                   <section id="payment">
+                       <div><img src="./Images/logo.svg" alt=""></div>
+                       <h1 id="payName"></h1>
+                       <p>PiggyVest(<span id="payAcc"></span>)</p>
+                       <label for="">Amount</label>
+                       <div><span>₦</span><input type="number" id="payAmt" placeholder="100.00-5,000,000.00"></div>
+                 <label for="">Remark</label><br>
+                 <input type="text" placeholder="What's this for?(Optional)"><br>
+                 <button onclick="showPin()">Confirm</button>
 
-                  </section>
+
+                <div id="trans">
+                    
+                        <button onclick="bac()"><i class='bx bx-chevron-left bx-flashing' ></i></button>
+                        <div class="payFlex"><p>Bank</p><h1>PiggyVest</h1></div>
+                        <div class="payFlex"><p>Account Number</p><h1 id="tranNum"></h1></div>
+                        <div class="payFlex"><p>Name</p><h1 id="tranNam"></h1></div>
+                        <div class="payFlex"><p>Amount</p><h1 id="tranAmount"></h1></div>
+                        <div><p>Payment method</p></div>
+                        <div id="method"></div>
+                        <button>Pay</button>
+                </div>
+                <div id="reciept">
+
+                </div>
+                    </section>
         </main>
       
 </body>
@@ -189,6 +212,10 @@
     let scrn = document.getElementById("scrn")
     let load = document.getElementById("load")
     let transfer = document.getElementById("transfer")
+    let digits = document.getElementById("digits")
+    let showName = document.getElementById("showName")
+    let payment = document.getElementById("payment")
+    let payName = document.getElementById("payName")
     scrn.style.display= "block"
     screen.style.display="none"
     load.style.display="none"
