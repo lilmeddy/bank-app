@@ -180,7 +180,7 @@
                         <div class="payFlex"><p>Amount</p><h1 id="tranAmount"></h1></div>
                         <div><p>Payment method</p></div>
                         <div id="method"></div>
-                        <button>Pay</button>
+                        <button onclick="finalPay()">Pay</button>
                 </div>
                 <div id="reciept">
 
@@ -216,6 +216,14 @@
     let showName = document.getElementById("showName")
     let payment = document.getElementById("payment")
     let payName = document.getElementById("payName")
+    let payAcc = document.getElementById("payAcc")
+    let payAmt = document.getElementById("payAmt")
+    let trans = document.getElementById("trans")
+    let tranNum = document.getElementById("tranNum")
+    let tranNam = document.getElementById("tranNam")
+    let tranAmount = document.getElementById("tranAmount")
+    let method = document.getElementById("method")
+    let reciept = document.getElementById("reciept")
     scrn.style.display= "block"
     screen.style.display="none"
     load.style.display="none"
