@@ -13,7 +13,7 @@
 </head>
 <body>
     <div id="scrn" style=" font-size: 150px; width: 20%; height: 50%; margin: 200px auto;">
-        <i class='bx bx-rotate-right bx-spin bx-rotate-90' style="color: black;"></i>
+        <i class='bx bx-rotate-right bx-spin bx-rotate-90' style="color: blue;"></i>
     </div>
             <aside class="aside" id="load">
             
@@ -145,7 +145,10 @@
                     <div class="best"></div>
                 </section>
         </main>
-      
+      <section id="transfer">
+        
+        <h1></h1>
+      </section>
 </body>
 </html>
 
@@ -169,6 +172,7 @@
     let screen = document.getElementById("screen")
     let scrn = document.getElementById("scrn")
     let load = document.getElementById("load")
+    let transfer = document.getElementById("transfer")
     scrn.style.display= "block"
     screen.style.display="none"
     load.style.display="none"
@@ -189,6 +193,9 @@
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
+
+
+
 </script>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
