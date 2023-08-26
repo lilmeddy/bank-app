@@ -254,3 +254,7 @@ main{
     transition: 3s all ease-in-out;
     box-shadow: 4px 6px 6px 6px rgba(0,0,0,0.5); 
 }
+.payFlex{
+    display: flex;
+    justify-content: space-between;
+}

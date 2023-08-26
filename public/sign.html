@@ -109,6 +109,7 @@
         firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
             .then((userCredential) => {
                 // Signed in 
+                
                 var user = userCredential.user;
                 var userId = user.uid;
                 one.style.display = "none"
@@ -126,19 +127,20 @@
     function reg(ev) {
         // console.log("jfj");
            event.preventDefault(ev);
-        // Add a new document in collection "cities"
+        const user = firebase.auth().currentUser;
         if (user) {
         const uid = user.uid;
         const email = user.email;
-        const displayName = user.displayName;
+        
         db.collection("account")
-        .doc()
+        .doc(uid)
         .set({
-            name: first.value,
+            // name: first.value,
+            displayName:first.value,
             account: randomNumber,
             pin: pin.value,
             last: last.value,
-            mail : email.value,
+            mail : email,
             balance: "₦1500000",
             number:number.value,
             userId: uid
@@ -151,10 +153,10 @@
                 })
                 .catch((error) => {
                     console.error("Error updating user profile: ", error);
-                });
-            })
+                })
             .catch((error) => {
                 console.error("Error writing document: ", error);
             });
     }
+}
 </script>

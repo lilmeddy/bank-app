@@ -343,15 +343,36 @@ function showPin(){
 
 }
 
-    function finalPay() {
-       
-        const userRef = db.collection("account").doc(user);
-userRef.set({
-    account: user.name,
-});
+  
+function finalPay() {
+       show()
+       const userRef = db.collection("account").doc(user); // 'user' seems to be a reference or UID, not a document ID
+    userRef.set({
+        account: user.name, // This is where the error is occurring
+    });
 
-   
-    } 
+    // const recipientAccountNumber = show()
+    const recipientRef = db.collection("account").doc(accountNumber);
+
+    const transferAmount = parseFloat(tranAmount.innerHTML);
+    const senderBalance = parseFloat(raydee.innerHTML);
+
+    if (senderBalance >= transferAmount) {
+        receiverRef.update({
+            balance: firebase.firestore.FieldValue.increment(transferAmount)
+        });
+
+        const senderRef = db.collection("account").doc(currentUser.uid);
+        senderRef.update({
+            balance: firebase.firestore.FieldValue.increment(-transferAmount)
+        });
+
+        alert("Transfer successful!");
+    } else {
+        alert("Insufficient balance.");
+    }
+}
+
     
 </script>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
