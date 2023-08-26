@@ -209,16 +209,48 @@ main{
     font-size: 55px;
 }
 #transferr,
-#payment{
+#payment,
+#trans{
     position:absolute;
     top:0;
-    left: 75%;
+    left: 70%;
     display: none;
     background-color: #fff;
     height: 100%;
-    width: 25%;
+    width: 30%;
     padding: 15px;
     transition: 3s all ease-in-out;
     box-shadow: 2px 4px 4px 4px rgba(0,0,0,0.5);
     /* text-align: center; */
+}
+/* #transferr{
+    position: relative;
+} */
+#trans{
+    position:absolute;
+    top:0%;
+    left: 0%;
+    margin: auto;
+    display: none;
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+    /* border-radius: 2px; */
+    padding: 15px;
+    transition: 3s all ease-in-out;
+    box-shadow: 4px 6px 6px 6px rgba(0,0,0,0.5); 
+}
+#reciept{
+    position:absolute;
+    top:0%;
+    left: 0%;
+    margin: auto;
+    display: none;
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+    /* border-radius: 2px; */
+    padding: 5px;
+    transition: 3s all ease-in-out;
+    box-shadow: 4px 6px 6px 6px rgba(0,0,0,0.5); 
 }

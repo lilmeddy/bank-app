@@ -124,7 +124,14 @@
     }
     function reg(ev) {
         // console.log("jfj");
-        event.preventDefault(ev);
+        const user = firebase.auth().currentUser;
+
+           if (user) {
+          const uid = user.uid; 
+           const email = user.email; 
+           const displayName = user.displayName; 
+
+}       event.preventDefault(ev);
         // Add a new document in collection "cities"
         db.collection("account")
         .doc()
@@ -139,10 +146,10 @@
         })
             .then(() => {
             window.location.href ="login.html"
-                console.log("Document successfully written!");
+                // console.log("Document successfully written!");
             })
             .catch((error) => {
-                console.error("Error writing document: ", error);
+                alert("Error writing document: ", error);
             });
     }
 
