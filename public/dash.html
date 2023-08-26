@@ -232,6 +232,15 @@
     const db = firebase.firestore();
 </script>
 <script>
+ firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in, perform dashboard actions
+    } else {
+        // User is not signed in, redirect to login page
+        window.location.href = "login.html";
+    }
+});
+
     // const user = firebase.auth().currentUser;
     let lastName = document.getElementById("lastName")
     let firstName = document.getElementById("firstName")
@@ -258,9 +267,9 @@
     scrn.style.display = "block"
     screen.style.display = "none"
     load.style.display = "none"
-     
+    let user =firebase.auth().currentUser.uid
     db.collection("account")
-        .get()
+        .get(user)
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 scrn.style.display = "none"

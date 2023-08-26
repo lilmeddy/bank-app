@@ -62,6 +62,7 @@
         none.style.display ="block"
         block.style.display ="none"
         // event.preventDefault(ev)
+  
         firebase.auth().signInWithEmailAndPassword(email.value, password.value)
   .then((userCredential) => {
     // Signed in
