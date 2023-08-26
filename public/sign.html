@@ -110,6 +110,7 @@
             .then((userCredential) => {
                 // Signed in 
                 var user = userCredential.user;
+                var userId = user.uid;
                 one.style.display = "none"
                 second.style.display ="block"
                 alert("successful")
@@ -124,15 +125,12 @@
     }
     function reg(ev) {
         // console.log("jfj");
-        const user = firebase.auth().currentUser;
-
-           if (user) {
-          const uid = user.uid; 
-           const email = user.email; 
-           const displayName = user.displayName; 
-
-}       event.preventDefault(ev);
+           event.preventDefault(ev);
         // Add a new document in collection "cities"
+        if (user) {
+        const uid = user.uid;
+        const email = user.email;
+        const displayName = user.displayName;
         db.collection("account")
         .doc()
         .set({
@@ -142,15 +140,21 @@
             last: last.value,
             mail : email.value,
             balance: "₦1500000",
-            number:number.value
+            number:number.value,
+            userId: uid
         })
-            .then(() => {
-            window.location.href ="login.html"
-                // console.log("Document successfully written!");
+        user.updateProfile({
+                    userId: uid
+                })
+                .then(() => {
+                    window.location.href = "login.html";
+                })
+                .catch((error) => {
+                    console.error("Error updating user profile: ", error);
+                });
             })
             .catch((error) => {
-                alert("Error writing document: ", error);
+                console.error("Error writing document: ", error);
             });
     }
-
 </script>

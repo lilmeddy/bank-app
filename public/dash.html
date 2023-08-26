@@ -240,8 +240,15 @@
         window.location.href = "login.html";
     }
 });
-
-    // const user = firebase.auth().currentUser;
+firebase.auth().onAuthStateChanged(function(user) {
+    console.log("User:", user); // Debugging line
+    if (user) {
+        // ...
+    } else {
+        // ...
+    }
+});  
+   const user = firebase.auth().currentUser;
     let lastName = document.getElementById("lastName")
     let firstName = document.getElementById("firstName")
     let raydee = document.getElementById("raydee")
@@ -267,9 +274,9 @@
     scrn.style.display = "block"
     screen.style.display = "none"
     load.style.display = "none"
-    let user =firebase.auth().currentUser.uid
+     
     db.collection("account")
-        .get(user)
+        .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 scrn.style.display = "none"
@@ -336,87 +343,14 @@ function showPin(){
 
 }
 
-    function finalPay(senderName, recipientAccountNumber, enteredPin, transferAmount) {
-
- 
-    //  
-    db.collection("account")
-        .where("account", "==", )
-        .get()
-        .then(senderQuerySnapshot => {
-            if (senderQuerySnapshot.empty) {
-                console.log("Sender account not found.");
-                return;
-            }
-
-            const senderData = senderDoc.data();
-            const senderBalance = senderData.balance;
-            const correctPin = senderData.pin;
-
-            if (enteredPin !== correctPin) {
-                console.log("Incorrect pin.");
-                return;
-            }
-
-            const transferAmount = tranAmount.innerHTML;
-            const recipientName = tranNam.innerHTML;
-            const recipientNumber = parseInt(tranNum.innerHTML);
-
-            if (senderBalance < transferAmount) {
-                console.log("Insufficient balance.");
-                return;
-            }
-            db.collection("account")
-                .where("account", "==", recipientAccountNumber)
-                .get()
-                .then(recipientQuerySnapshot => {
-                    if (recipientQuerySnapshot.empty) {
-                        console.log("Recipient account not found.");
-                        return;
-                    }
-                    const recipientDoc = recipientQuerySnapshot.docs[0];
-                    const recipientData = recipientDoc.data();
-                    const recipientBalance = recipientData.balance;
-
-                    const newSenderBalance = senderBalance - transferAmount;
-                    const newRecipientBalance = recipientBalance + transferAmount;
-
-                    senderDoc.ref.update({ balance: newSenderBalance })
-                    .then(() => {
-                            recipientDoc.ref.update({ balance: newRecipientBalance })
-                                .then(() => {
-                                    const transactionRecord = {
-                                        sender: senderName,
-                                        recipient: recipientName,
-                                        amount: transferAmount,
-                                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                                        // remark: tranRem.innerHTML
-                                    };
-                                    db.collection("transactionHistory").add(transactionRecord)
-                                        .then(() => {
-                                            console.log("Transfer successful.");
-                                        })
-                                        .catch(error => {
-                                            console.error("Error adding transaction record:", error);
-                                        })
-                                   .catch(error=> {
-                                    console.error("Error updating recipient balance:", error);
-                                });
-                        })
-                        .catch(error => {
-                            console.error("Error updating sender balance:", error);
-                        });
-                })
-                .catch(error => {
-                    console.error("Error checking recipient account:", error);
-                });
-        })
-        .catch(error => {
-            console.error("Error checking sender account:", error);
-        });
-
+    function finalPay() {
+       
+        const userRef = db.collection("account").doc(user);
+userRef.set({
+    account: user.name,
 });
-// })
+
+   
     } 
     
 </script>
