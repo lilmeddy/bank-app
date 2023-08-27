@@ -240,14 +240,14 @@
         window.location.href = "login.html";
     }
 });
-firebase.auth().onAuthStateChanged(function(user) {
-    console.log("User:", user); // Debugging line
-    if (user) {
-        // ...
-    } else {
-        // ...
-    }
-});  
+// firebase.auth().onAuthStateChanged(function(user) {
+//     console.log("User:", user); // Debugging line
+//     if (user) {
+//         // ...
+//     } else {
+//         // ...
+//     }
+// });  
    const user = firebase.auth().currentUser;
     let lastName = document.getElementById("lastName")
     let firstName = document.getElementById("firstName")
@@ -327,19 +327,7 @@ firebase.auth().onAuthStateChanged(function(user) {
  
         })
     }
-        function finalPay(){
-            show()
-            if (senderBalance => transs){
-        //         accountData.update({
-        //     balance: firebase.firestore.FieldValue.increment(transferAmount)
-        // });
-              NewBalance =Number(accountBalance+transs)
-        console.log(NewBalance);
-        senderBalance =senderBalance-transs
-        console.log(senderBalance);
-            }
-
-        }
+       
 
 
 function pay(){
@@ -360,6 +348,52 @@ function showPin(){
     tranRem.innerHTML = rem.value
 
 }
+async function finalPay() {
+    const user = firebase.auth().currentUser;
+    try {
+        const senderUID = user.uid;
+        const receiverAccount = parseInt(tranNum.innerText);
+        const transferAmount = parseFloat(tranAmount.innerText);
+        const transferRemark = tranRem.innerText || "Transfer";
+
+        const senderRef = db.collection("account").doc(senderUID);
+        const receiverRef = db.collection("account").doc(receiverAccount.toString());
+
+        const transaction = db.runTransaction(async (transaction) => {
+            const senderSnapshot = await transaction.get(senderRef);
+            const receiverSnapshot = await transaction.get(receiverRef);
+
+            const senderData = senderSnapshot.data();
+            const receiverData = receiverSnapshot.data();
+
+            if (!senderData || !receiverData) {
+                throw new Error("Sender or receiver not found.");
+            }
+
+            if (senderData.balance < transferAmount) {
+                throw new Error("Insufficient balance.");
+            }
+
+            const newSenderBalance = senderData.balance - transferAmount;
+            const newReceiverBalance = receiverData.balance + transferAmount;
+
+            transaction.update(senderRef, { balance: newSenderBalance });
+            transaction.update(receiverRef, { balance: newReceiverBalance });
+        });
+
+        await transaction;
+
+        // Show success message and update the UI with new balances
+        alert("Money transfer successful!");
+        raydee.innerHTML = newSenderBalance.toFixed(2);
+        // Update receiver's balance if you have a way to access receiver's UI element
+    } catch (error) {
+        alert("Money transfer failed: " + error.message);
+    }
+}
+
+
+
 
 
    
