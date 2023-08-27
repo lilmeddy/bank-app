@@ -258,3 +258,23 @@ main{
     display: flex;
     justify-content: space-between;
 }
+.payFlex h1{
+ font-size: 25px;
+}
+#transferr input,
+#payment input,
+#trans input{
+    color: blue;
+    border-color: blue;
+    /* border: none; */
+    border: 1px solid blue;
+    padding: 5px;
+    outline: none;
+}
+#transferr button,
+#payment button,
+#trans button{
+    background-color: transparent;
+    color: blue;
+    border: none;
+}

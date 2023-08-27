@@ -157,8 +157,8 @@
                 <button onclick="his()">History</button>
             </div>
             <div class="recipeient">
-                <div><input id="digits" type="number" placeholder="Enter 10 digits Account Number">
-                <button onclick="show()"><i class='bx bx-check'></i></button></div>
+                <div style="border-bottom: 1px solid blue; height: fit-content;"><input id="digits" type="number" placeholder="Enter 10 digits Account Number">
+                <button onclick="show()" ><i class='bx bx-check' style="color:blue"></i></button></div>
                 <h1 id="showName"></h1>
                 <button onclick="pay()" id="">Next</button>
             </div>
@@ -274,16 +274,17 @@ firebase.auth().onAuthStateChanged(function(user) {
     scrn.style.display = "block"
     screen.style.display = "none"
     load.style.display = "none"
-     
-    db.collection("account")
+        db.collection("account")
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 scrn.style.display = "none"
                 screen.style.display = "block"
                 load.style.display = "block"
+                let senderRef = doc.data()
+                senderBalance = doc.data().balance
                 // doc.data() is never undefined for query doc snapshots
-                // console.log(doc.id, " => ", doc.data());
+                console.log(doc.id, " => ", doc.data());
                 lastName.innerHTML = ` ${doc.data().last}`
                 firstName.innerHTML = ` ${doc.data().name} pocket`
                 raydee.innerHTML = ` ${doc.data().balance}`
@@ -300,6 +301,8 @@ firebase.auth().onAuthStateChanged(function(user) {
        showName.innerHTML=`
        <i class='bx bx-rotate-right bx-spin'></i>`
     let accountNumber = parseInt(digits.value); 
+    let transs = tranAmount.value
+    
     db.collection("account")
         .where("account", "==", accountNumber)
         .get()
@@ -309,20 +312,35 @@ firebase.auth().onAuthStateChanged(function(user) {
                 const accountName = accountData.name; 
                 const accountLast = accountData.last;
                 const accountNum = accountData.account;
+                const accountBalance = accountData.balance;
                 console.log(accountData); 
                 showName.innerHTML = `
                 <i class='bx bxs-user-check'></i>
                 ${accountName} ${accountLast} `;
             tranNam.innerHTML = `${accountName} ${accountLast}`;
             tranNum.innerHTML =`${accountNum}`
+
+
             } else {
                 showName.innerHTML = "Account not found.";
             }
+ 
         })
-        .catch((error) => {
-            console.log("Error checking account: ", error);
-        });
-}
+    }
+        function finalPay(){
+            show()
+            if (senderBalance => transs){
+        //         accountData.update({
+        //     balance: firebase.firestore.FieldValue.increment(transferAmount)
+        // });
+              NewBalance =Number(accountBalance+transs)
+        console.log(NewBalance);
+        senderBalance =senderBalance-transs
+        console.log(senderBalance);
+            }
+
+        }
+
 
 function pay(){
     if(!showName.innerHTML==""){
@@ -343,35 +361,8 @@ function showPin(){
 
 }
 
-  
-function finalPay() {
-       show()
-       const userRef = db.collection("account").doc(user); // 'user' seems to be a reference or UID, not a document ID
-    userRef.set({
-        account: user.name, // This is where the error is occurring
-    });
 
-    // const recipientAccountNumber = show()
-    const recipientRef = db.collection("account").doc(accountNumber);
-
-    const transferAmount = parseFloat(tranAmount.innerHTML);
-    const senderBalance = parseFloat(raydee.innerHTML);
-
-    if (senderBalance >= transferAmount) {
-        receiverRef.update({
-            balance: firebase.firestore.FieldValue.increment(transferAmount)
-        });
-
-        const senderRef = db.collection("account").doc(currentUser.uid);
-        senderRef.update({
-            balance: firebase.firestore.FieldValue.increment(-transferAmount)
-        });
-
-        alert("Transfer successful!");
-    } else {
-        alert("Insufficient balance.");
-    }
-}
+   
 
     
 </script>
