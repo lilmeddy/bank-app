@@ -12,7 +12,22 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-</head>
+<script>
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        const user = auth.currentUser;
+        console.log(user);
+        window.location.href ="dash.html"
+        // User is signed in, perform dashboard actions
+    } else {
+        // User is not signed in, redirect to login page
+        window.location.href = "login.html";
+    }
+});
+</script>
+
+
+    </head>
 
 <body>
     <div id="scrn" style=" font-size: 150px; width: 20%; height: 50%; margin: 200px auto;">
@@ -57,7 +72,7 @@
             </li>
 
             <li class="li move">
-                <button onclick="log()" class=" sap" >
+                <button onclick="log()" class=" sap" style="background-color: transparent;border: none;">
                     <i class='bx bx-power-off'></i>
                     <span class="nav-item">Logout</span>
                 </button>
@@ -88,7 +103,8 @@
                     <p    class="btn nam" id="transaction">Transaction History</p>
                     <p   class="btn nam" id="fund">Fund</p>
                     <button onclick="myTransfer()" style="background-color: transparent;border: none;"><p  class="btn nam" >Transfer</p></button>
-                    <p   class="btn nam" id="airtime">Buy Airtime</p>
+                    <button onclick="myAirtime()" style="background-color: transparent;border: none;"><p  class="btn nam" >Buy Airtime</p></button>
+                    <!-- <p   class="btn nam" id="airtime"></p> -->
                     <p   class="btn nam" id="save">+ QUICK SAVE</p>
                 </div>
             </div>
@@ -143,11 +159,14 @@
         </section>
         <section class="list-flex">
             <div class="todo">
-
+              
             </div>
             <div class="best"></div>
         </section>
-
+      <div id="airtime">
+        <input type="number" id="airtimeAmount" placeholder="Amount">
+        <button onclick="buyAirtime()">Buy Airtime</button>
+      </div>
         <section id="transferr">
             <div class="right">
                 <button onclick="back()"><i class='bx bx-chevron-left bx-flashing'></i></button>
@@ -232,15 +251,7 @@
     const db = firebase.firestore();
 </script>
 <script>
- firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        window.location.href ="dash.html"
-        // User is signed in, perform dashboard actions
-    } else {
-        // User is not signed in, redirect to login page
-        window.location.href = "login.html";
-    }
-});
+ 
 // firebase.auth().onAuthStateChanged(function(user) {
 //     console.log("User:", user); // Debugging line
 //     if (user) {
@@ -250,6 +261,7 @@
 //     }
 // });  
    const user = firebase.auth().currentUser;
+   console.log(user);
 //    let logs = document.getElementById("log")
     let lastName = document.getElementById("lastName")
     let firstName = document.getElementById("firstName")
@@ -285,13 +297,14 @@
                 scrn.style.display = "none"
                 screen.style.display = "block"
                 load.style.display = "block"
-                let senderRef = doc.data()
+                // let senderRef = doc.data().id
                 senderBalance = doc.data().balance
                 // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-                lastName.innerHTML = ` ${doc.data().last}`
-                firstName.innerHTML = ` ${doc.data().displayName} pocket`
-                raydee.innerHTML = ` ${doc.data().balance}`
+                // console.log(doc.id, " => ", doc.data().id);
+                // console.log(senderRef);
+                lastName.textContent = ` ${doc.data().last}`
+                firstName.textContent = ` ${doc.data().displayName} pocket`
+                raydee.textContent = ` ${doc.data().balance}`
             });
         })
         .catch((error) => {
@@ -305,6 +318,54 @@
 });
          }
     // transfer.addEventListener("click",myTransfer);
+
+
+
+    function myAirtime(){
+   airtime.style.display="block"
+    }
+    function buyAirtime(){
+    const amountInput = document.getElementById("airtimeAmount");
+    const amount = parseFloat(amountInput.value);
+
+    if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+    }
+
+    // const user = auth.currentUser;
+    const userId = user.uid;
+    db.collection("account").doc(account).get()
+        .then(doc => {
+            const userData = doc.data();
+            const currentBalance = userData.balance;
+
+            if (currentBalance >= amount) {
+                const newBalance = currentBalance - amount;
+
+                firestore.collection("users").doc(userId).update({
+                    balance: newBalance
+                }).then(() => {
+                    const receiptContent = generateReceiptContent(amount);
+                    const printWindow = window.open('', '_blank');
+
+                    printWindow.document.write(`<pre>${receiptContent}</pre>`);
+                    printWindow.document.close();
+                    printWindow.print();
+                    raydee.textContent = `Account Balance: $${newBalance.toFixed(2)}`;
+                }).catch(error => {
+                    console.error("Error updating balance:", error);
+                });
+            } else {
+                alert("Insufficient balance.");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching user data:", error);
+        });
+}
+
+
     function myTransfer(){
            transferr.style.display ="block"
     }
@@ -314,12 +375,16 @@
     let accountNumber = parseInt(digits.value); 
     let amount = payAmt.value
     let transs = tranAmount.value
-    const user = auth.currentUser;
-    const userId = user.uid;
-    firestore.collection("account").doc(userId).get()
-        .then(senderDoc => {
-            const senderData = senderDoc.data();
+   
+    // const userId = user.uid;
+    db.collection("account")
+        .get()
+        .then((querySnapshot) => {
+            // let mede = []
+            querySnapshot.forEach((doc) => {
+            const senderData = querySnapshot.docs[0].data();
             const senderBalance = senderData.balance;
+            console.log(senderData);
             if (senderBalance => amount)
     db.collection("account")
         .where("account", "==", accountNumber)
@@ -340,7 +405,7 @@
             tranNum.innerHTML =`${accountNum}`
             const newSenderBalance = senderBalance - amount;
           const newAccountBalance = accountBalance + amount;
-          senderDoc.ref.update({ balance: newSenderBalance })
+          senderData.update({ balance: newSenderBalance })
                                 .then(() => {
                                     firestore.collection("account").doc(accountId).update({ balance: newAccountBalance })
                                         .then(() => {
@@ -365,8 +430,11 @@
                     .catch(error => {
                         console.error("Error fetching recipient data:", error);
                     });
-            })    
+   
+                })
+                })    
     } 
+
 //     db.collection("account")
 //         .where("account", "==", accountNumber)
 //         .get()

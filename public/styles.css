@@ -26,7 +26,7 @@ header{
     justify-content: space-between;
     align-items: center;
     z-index: 10;
-    border-bottom: 1px solid transparent;
+    border-bottom: 2px solid transparent;
     padding:5px;
 }
 .active{
@@ -284,9 +284,9 @@ nav{
 .blue{
     color: blue;
   }
-  .blue .abs{
+  /* .blueabs{
     animation: phone  3s infinite;
-  }
+  } */
   .grey,
   .grey a{
     color: rgb(106, 106, 250);
@@ -294,9 +294,10 @@ nav{
   .grey:hover{
     background-color:rgb(106, 106, 250) ;
   }
-  .grey .abs{
+  /* .greyabs{
+    visibility: hidden;
     animation: phone  9s  infinite;
-  }
+  } */
   .black,
   .black a{
     color: rgba(0, 128, 0, 0.897);
@@ -304,9 +305,9 @@ nav{
   .black:hover{
     background-color:rgba(0, 128, 0, 0.897);
   }
-  .black .abs{
+  /* .blackabs{
     animation: phone  12s infinite;
-  }
+  } */
   .red,
   .red a{
     color: fuchsia;
@@ -314,9 +315,9 @@ nav{
   .red:hover{
     background-color:fuchsia;
   }
-  .red .abs{
+  /* .redabs{
     animation: phone  15s infinite;
-  }
+  } */
   .last,
   .last a{
     color: rgba(0, 0, 0, 0.829);
@@ -324,9 +325,9 @@ nav{
   .last:hover{
     background-color:rgba(0, 0, 0, 0.829);
   }
-  .last .abs{
+  /* .lastabs{
     animation: phone  18s infinite;
-  }
+  } */
   .blue:hover{
       background-color:blue; 
   }

@@ -208,9 +208,14 @@ main{
 .icon i {
     font-size: 55px;
 }
+
+
+
+
 #transferr,
 #payment,
-#trans{
+#trans,
+#airtime{
     position:absolute;
     top:0;
     left: 70%;
@@ -263,7 +268,8 @@ main{
 }
 #transferr input,
 #payment input,
-#trans input{
+#trans input,
+#airtime input{
     color: blue;
     border-color: blue;
     /* border: none; */
