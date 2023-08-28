@@ -155,13 +155,52 @@
                     <p id="naira">₦14.28</p>
                 </div>
             </div>
-
         </section>
         <section class="list-flex">
             <div class="todo">
-              
+              <p>TO-DO LIST</p>
+              <div class="to">
+                <input type="radio" name="" id="">
+                <span>Turn on your Piggybank AutoSave 🚦 </span>
+              </div>
+              <div class="to">
+                <input type="radio" name="" id="">
+                <span> Safelock ₦50,001 for 61 - 90 days
+                   </span>
+              </div>
+              <div class="to">
+                <input type="radio" name="" id="">
+                <span> Set your security question now! 🔐 🔐</span>
+              </div>
+              <div class="too">
+                <div><i class='bx bx-gift'></i></div>
+                <div><h5>
+                    Get Piggybank Savings Interest for July!
+                </h5>
+                    <p>Tap to earn interest on Your Piggybank Savings for July</p>
+                </div>
+              </div>
+              <div class="too">
+                <div><i class='bx bx-gift'></i></div>
+                <div><h5>
+                    Get Piggybank Savings Interest for July!
+                </h5>
+                    <p>Tap to earn interest on Your Piggybank Savings for July</p>
+                </div>
+              </div>
+              <div class="too">
+                <div><i class='bx bx-gift'></i></div>
+                <div><h5>
+                    Get Piggybank Savings Interest for July!
+                </h5>
+                    <p>Tap to earn interest on Your Piggybank Savings for July</p>
+                </div>
+              </div>
             </div>
-            <div class="best"></div>
+            <div class="best">
+                <p>SAVER OF THE MONTH: TOLA</p>
+                <img src="https://storage.googleapis.com/piggybankservice.appspot.com/main-assets/banner2be2fabdd9.jpeg" alt="">
+            </div>
         </section>
       <div id="airtime">
         <input type="number" id="airtimeAmount" placeholder="Amount">
@@ -313,6 +352,7 @@
          function log(){
             firebase.auth().signOut().then(() => {
   alert ("Sign-out successful.")
+  window.location.href ="index.html"
 }).catch((error) => {
   // An error happened.
 });
@@ -393,7 +433,7 @@
             if (!querySnapshot.empty) {
                 const accountData = querySnapshot.docs[0].data();
                 const accountId = accountData.Id
-                const accountName = accountData.name; 
+                const accountName = accountData.displayName; 
                 const accountLast = accountData.last;
                 const accountNum = accountData.account;
                 const accountBalance = accountData.balance;
