@@ -138,7 +138,9 @@
         if (user) {
         const uid = user.uid;
         const email = user.email;
+        // var docData = {
         
+    
         db.collection("account")
         .doc(uid)
         .set({
