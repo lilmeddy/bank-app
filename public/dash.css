@@ -125,7 +125,7 @@ aside.active .nav-item {
 main{
     position: relative;
     /* min-height: 100vh; */
-    height:1000vh;
+    height:fit-content;
     top: 0;
     left: 80px;
     background-color: #fcf6f683;
@@ -215,7 +215,7 @@ main{
     margin: auto;
     display: flex;
     margin-top: 20px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     /* height: 150vh; */
     margin-bottom: 20px;
     justify-content: space-evenly;
@@ -247,9 +247,14 @@ main{
     border-radius: 6px;
     border-bottom-left-radius: 1px;
 }
+.too h5{
+    color: blue;
+    margin-top: 13px;
+}
 .too i{
     color: blue;
-    font-size: 35px;
+    font-size: 40px;
+    margin-right: 6px;
 }
 .too p{
     margin-top: -8px;

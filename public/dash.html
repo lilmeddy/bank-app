@@ -291,14 +291,57 @@
 </script>
 <script>
  
-// firebase.auth().onAuthStateChanged(function(user) {
-//     console.log("User:", user); // Debugging line
-//     if (user) {
-//         // ...
-//     } else {
-//         // ...
-//     }
-// });  
+ function myAirtime(){
+   airtime.style.display="block"
+    }
+    function buyAirtime(){
+firebase.auth().onAuthStateChanged(function(user) {
+    console.log("User:", user); 
+    if (user) {
+     var uid = user.uid
+     console.log(user);
+
+        // ...
+    
+   
+   
+    const amountInput = document.getElementById("airtimeAmount");
+    const amount =amountInput.value;
+    // var uid = user.uid;
+    // console.log(user);
+    db.collection("account").doc(uid).get()
+        .then(doc => {
+            const userData = doc.data();
+            const currentBalance = userData.balance;
+
+            if (currentBalance >= amount) {
+                const newBalance = currentBalance - amount;
+
+                db.collection("users").doc(uid).update({
+                    balance: newBalance
+                }).then(() => {
+                    const receiptContent = generateReceiptContent(amount);
+                    const printWindow = window.open('', '_blank');
+
+                    printWindow.document.write(`<pre>${receiptContent}</pre>`);
+                    printWindow.document.close();
+                    printWindow.print();
+                    raydee.textContent = `Account Balance: $${newBalance.toFixed(2)}`;
+                }).catch(error => {
+                    console.error("Error updating balance:", error);
+                });
+            } else {
+                alert("Insufficient balance.");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching user data:", error);
+        });
+  
+    }
+}) 
+}
+
    const user = firebase.auth().currentUser;
    console.log(user);
 //    let logs = document.getElementById("log")
@@ -361,49 +404,14 @@
 
 
 
-    function myAirtime(){
-   airtime.style.display="block"
-    }
-    function buyAirtime(){
-    const amountInput = document.getElementById("airtimeAmount");
-    const amount = parseFloat(amountInput.value);
+   
 
-    if (isNaN(amount) || amount <= 0) {
-        alert("Please enter a valid amount.");
-        return;
-    }
+    // if (isNaN(amount) || amount <= 0) {
+    //     alert("Please enter a valid amount.");
+    //     return;
+    // }
 
     // const user = auth.currentUser;
-    const userId = user.uid;
-    db.collection("account").doc(account).get()
-        .then(doc => {
-            const userData = doc.data();
-            const currentBalance = userData.balance;
-
-            if (currentBalance >= amount) {
-                const newBalance = currentBalance - amount;
-
-                firestore.collection("users").doc(userId).update({
-                    balance: newBalance
-                }).then(() => {
-                    const receiptContent = generateReceiptContent(amount);
-                    const printWindow = window.open('', '_blank');
-
-                    printWindow.document.write(`<pre>${receiptContent}</pre>`);
-                    printWindow.document.close();
-                    printWindow.print();
-                    raydee.textContent = `Account Balance: $${newBalance.toFixed(2)}`;
-                }).catch(error => {
-                    console.error("Error updating balance:", error);
-                });
-            } else {
-                alert("Insufficient balance.");
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching user data:", error);
-        });
-}
 
 
     function myTransfer(){
