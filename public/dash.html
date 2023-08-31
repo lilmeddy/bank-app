@@ -13,17 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script>
-    firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        const user = auth.currentUser;
-        console.log(user);
-        window.location.href ="dash.html"
-        // User is signed in, perform dashboard actions
-    } else {
-        // User is not signed in, redirect to login page
-        window.location.href = "login.html";
-    }
-});
+   
 </script>
 
 
@@ -218,11 +208,11 @@
                 <div style="border-bottom: 1px solid blue; height: fit-content;"><input id="digits" type="number" placeholder="Enter 10 digits Account Number">
                 <button onclick="sho()" ><i class='bx bx-check' style="color:blue"></i></button></div>
                 <h1 id="showName"></h1>
-                <!-- <button onclick="pay()" id="">Next</button> -->
+                <button onclick="pay()" id="">Next</button>
             </div>
-        <!-- </section> -->
+        </section>
 
-        <!-- <section id="payment"> -->
+        <section id="payment">
             <div><img src="./Images/logo.svg" alt=""></div>
             <h1 id="payName"></h1>
             <p>PiggyVest(<span id="payAcc"></span>)</p>
@@ -233,9 +223,9 @@
             <button onclick="showPin()">Confirm</button>
 
 
-            <!-- <div id="trans"> -->
+            <div id="trans">
 
-                <!-- <button onclick="bac()"><i class='bx bx-chevron-left bx-flashing'></i></button> -->
+                <button onclick="bac()"><i class='bx bx-chevron-left bx-flashing'></i></button>
                 <div class="payFlex">
                     <p>Bank</p>
                     <h1>PiggyVest</h1>
@@ -256,14 +246,14 @@
                     <p>Remark</p>
                     <h1 id="tranRem"></h1>
                 </div>
-                <!-- <div>
+                <div>
                     <p>Payment method</p>
                 </div>
                 <div id="method"></div>
                 <div>
                     <label for="">Enter Pin</label>
                     <input type="numbers" id="final" placeholder="Enter Pin">
-                </div> -->
+                </div>
                 <button onclick="show()">Pay</button>
             </div>
             <div id="reciept">
@@ -300,9 +290,9 @@
     else{
       window.location.href = "login.html"   
     }
- 
- 
-//    const user = firebase.auth().currentUser;
+})
+
+   const user = firebase.auth().currentUser;
    console.log(user);
 //    let logs = document.getElementById("log")
     let lastName = document.getElementById("lastName")
@@ -327,21 +317,22 @@
     let reciept = document.getElementById("reciept")
     let rem = document.getElementById("rem")
     let tranRem = document.getElementById("tranRem")
-    scrn.style.display = "block"
     screen.style.display = "none"
     load.style.display = "none"
-
+    scrn.style.display = "block"
+   
     var docRef = db.collection("account").doc(`${user.uid}`);
 
     docRef.get().then((doc) => {
         if (doc.exists) {
-            scrn.style.display = "none"
+            console.log("Document data:", doc.data());
                 screen.style.display = "block"
                 load.style.display = "block"
+                scrn.style.display = "none"
                 lastName.textContent = ` ${doc.data().last}`
                 firstName.textContent = ` ${user.displayName} pocket`
                 raydee.textContent = ` ${doc.data().balance}`
-            console.log("Document data:", doc.data());
+          
 
 
         } else {
@@ -363,7 +354,7 @@
          function myAirtime(){
    airtime.style.display="block"
     }
-    function buyAirtime(){
+    // function buyAirtime(){
 
     
    
@@ -372,37 +363,37 @@
     const amount =amountInput.value;
     // var uid = user.uid;
     // console.log(user);
-    db.collection("account").doc(uid).get()
-        .then(doc => {
-            const userData = doc.data();
-            const currentBalance = userData.balance;
+//     db.collection("account").doc(uid).get()
+//         .then(doc => {
+//             const userData = doc.data();
+//             const currentBalance = userData.balance;
 
-            if (currentBalance >= amount) {
-                const newBalance = currentBalance - amount;
+//             if (currentBalance >= amount) {
+//                 const newBalance = currentBalance - amount;
 
-                db.collection("users").doc(uid).update({
-                    balance: newBalance
-                }).then(() => {
-                    const receiptContent = generateReceiptContent(amount);
-                    const printWindow = window.open('', '_blank');
+//                 db.collection("users").doc(uid).update({
+//                     balance: newBalance
+//                 }).then(() => {
+//                     const receiptContent = generateReceiptContent(amount);
+//                     const printWindow = window.open('', '_blank');
 
-                    printWindow.document.write(`<pre>${receiptContent}</pre>`);
-                    printWindow.document.close();
-                    printWindow.print();
-                    raydee.textContent = `Account Balance: $${newBalance.toFixed(2)}`;
-                }).catch(error => {
-                    console.error("Error updating balance:", error);
-                });
-            } else {
-                alert("Insufficient balance.");
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching user data:", error);
-        });
+//                     printWindow.document.write(`<pre>${receiptContent}</pre>`);
+//                     printWindow.document.close();
+//                     printWindow.print();
+//                     raydee.textContent = `Account Balance: $${newBalance.toFixed(2)}`;
+//                 }).catch(error => {
+//                     console.error("Error updating balance:", error);
+//                 });
+//             } else {
+//                 alert("Insufficient balance.");
+//             }
+//         })
+//         .catch(error => {
+//             console.error("Error fetching user data:", error);
+//         });
   
-    }
-}) 
+//     }
+// }) 
 
 
 
@@ -417,15 +408,15 @@
     let transs = tranAmount.value
    
     // const userId = user.uid;
-    db.collection("account")
-        .get()
-        .then((querySnapshot) => {
-            // let mede = []
-            querySnapshot.forEach((doc) => {
-            const senderData = querySnapshot.docs[0].data();
-            const senderBalance = senderData.balance;
-            console.log(senderData);
-            if (senderBalance => amount)
+    // db.collection("account")
+    //     .get()
+    //     .then((querySnapshot) => {
+    //         // let mede = []
+    //         querySnapshot.forEach((doc) => {
+    //         const senderData = querySnapshot.docs[0].data();
+    //         const senderBalance = senderData.balance;
+    //         console.log(senderData);
+    //         if (senderBalance => amount)
     db.collection("account")
         .where("account", "==", accountNumber)
         .get()
@@ -471,55 +462,55 @@
                         console.error("Error fetching recipient data:", error);
                     });
    
-                })
-                })    
-    } 
+                // })
+                // })    
+    // } 
 
-//     db.collection("account")
-//         .where("account", "==", accountNumber)
-//         .get()
-//         .then((querySnapshot) => {
-//             if (!querySnapshot.empty) {
-//                 const accountData = querySnapshot.docs[0].data();
-//                 const accountName = accountData.name; 
-//                 const accountLast = accountData.last;
-//                 const accountNum = accountData.account;
-//                 const accountBalance = accountData.balance;
-//                 console.log(accountData); 
-//                 showName.innerHTML = `
-//                 <i class='bx bxs-user-check'></i>
-//                 ${accountName} ${accountLast} `;
-//             tranNam.innerHTML = `${accountName} ${accountLast}`;
-//             tranNum.innerHTML =`${accountNum}`
+    db.collection("account")
+        .where("account", "==", accountNumber)
+        .get()
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                const accountData = querySnapshot.docs[0].data();
+                const accountName = accountData.name; 
+                const accountLast = accountData.last;
+                const accountNum = accountData.account;
+                const accountBalance = accountData.balance;
+                console.log(accountData); 
+                showName.innerHTML = `
+                <i class='bx bxs-user-check'></i>
+                ${accountName} ${accountLast} `;
+            tranNam.innerHTML = `${accountName} ${accountLast}`;
+            tranNum.innerHTML =`${accountNum}`
 
 
-//             } else {
-//                 showName.innerHTML = "Account not found.";
-//             }
+            } else {
+                showName.innerHTML = "Account not found.";
+            }
  
-//         })
-//     }
+        })
+    }
        
-
-
-// function pay(){
-//     if(!showName.innerHTML==""){
-//         transferr.style.display ="none"
-//      payment.style.display ="block"
-//     }
+function pay(){
+    if(!showName.innerHTML==""){
+        transferr.style.display ="none"
+     payment.style.display ="block"
+    }
    
-//     // trans.style.top ="100%"
+    // trans.style.top ="100%"
 
-// }
-// function showPin(){
-//     if(payAmt.value !==""){
-//         // payment.style.display ="none"
-//         trans.style.display = "block"
-//     }
-//     tranAmount.innerHTML = payAmt.value
-//     tranRem.innerHTML = rem.value
+}
+function showPin(){
+    if(payAmt.value !==""){
+        // payment.style.display ="none"
+        trans.style.display = "block"
+    }
+    tranAmount.innerHTML = payAmt.value
+    tranRem.innerHTML = rem.value
 
-// }
+}
+
+// 
 // async function finalPay() {
 //     const user = firebase.auth().currentUser;
 //     try {
