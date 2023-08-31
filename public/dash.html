@@ -291,17 +291,80 @@
 </script>
 <script>
  
- function myAirtime(){
-   airtime.style.display="block"
-    }
-    function buyAirtime(){
-firebase.auth().onAuthStateChanged(function(user) {
+ firebase.auth().onAuthStateChanged(function(user) {
     console.log("User:", user); 
     if (user) {
      var uid = user.uid
      console.log(user);
+    }
+    else{
+      window.location.href = "login.html"   
+    }
+ 
+ 
+//    const user = firebase.auth().currentUser;
+   console.log(user);
+//    let logs = document.getElementById("log")
+    let lastName = document.getElementById("lastName")
+    let firstName = document.getElementById("firstName")
+    let raydee = document.getElementById("raydee")
+    let screen = document.getElementById("screen")
+    let scrn = document.getElementById("scrn")
+    let load = document.getElementById("load")
+    let transfer = document.getElementById("transfer")
+    let transferr = document.getElementById("transferr")
+    let digits = document.getElementById("digits")
+    let showName = document.getElementById("showName")
+    let payment = document.getElementById("payment")
+    let payName = document.getElementById("payName")
+    let payAcc = document.getElementById("payAcc")
+    let payAmt = document.getElementById("payAmt")
+    let trans = document.getElementById("trans")
+    let tranNum = document.getElementById("tranNum")
+    let tranNam = document.getElementById("tranNam")
+    let tranAmount = document.getElementById("tranAmount")
+    let method = document.getElementById("method")
+    let reciept = document.getElementById("reciept")
+    let rem = document.getElementById("rem")
+    let tranRem = document.getElementById("tranRem")
+    scrn.style.display = "block"
+    screen.style.display = "none"
+    load.style.display = "none"
 
-        // ...
+    var docRef = db.collection("account").doc(`${user.uid}`);
+
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            scrn.style.display = "none"
+                screen.style.display = "block"
+                load.style.display = "block"
+                lastName.textContent = ` ${doc.data().last}`
+                firstName.textContent = ` ${user.displayName} pocket`
+                raydee.textContent = ` ${doc.data().balance}`
+            console.log("Document data:", doc.data());
+
+
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+
+         function log(){
+            firebase.auth().signOut().then(() => {
+  alert ("Sign-out successful.")
+  window.location.href ="index.html"
+}).catch((error) => {
+  // An error happened.
+});
+         }
+         function myAirtime(){
+   airtime.style.display="block"
+    }
+    function buyAirtime(){
+
     
    
    
@@ -340,78 +403,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   
     }
 }) 
-}
 
-   const user = firebase.auth().currentUser;
-   console.log(user);
-//    let logs = document.getElementById("log")
-    let lastName = document.getElementById("lastName")
-    let firstName = document.getElementById("firstName")
-    let raydee = document.getElementById("raydee")
-    let screen = document.getElementById("screen")
-    let scrn = document.getElementById("scrn")
-    let load = document.getElementById("load")
-    let transfer = document.getElementById("transfer")
-    let transferr = document.getElementById("transferr")
-    let digits = document.getElementById("digits")
-    let showName = document.getElementById("showName")
-    let payment = document.getElementById("payment")
-    let payName = document.getElementById("payName")
-    let payAcc = document.getElementById("payAcc")
-    let payAmt = document.getElementById("payAmt")
-    let trans = document.getElementById("trans")
-    let tranNum = document.getElementById("tranNum")
-    let tranNam = document.getElementById("tranNam")
-    let tranAmount = document.getElementById("tranAmount")
-    let method = document.getElementById("method")
-    let reciept = document.getElementById("reciept")
-    let rem = document.getElementById("rem")
-    let tranRem = document.getElementById("tranRem")
-    scrn.style.display = "block"
-    screen.style.display = "none"
-    load.style.display = "none"
-        db.collection("account")
-        .get()
-        .then((querySnapshot) => {
-            // let mede = []
-            querySnapshot.forEach((doc) => {
-                // mede.push({...doc.data(),id:doc,id})
-                scrn.style.display = "none"
-                screen.style.display = "block"
-                load.style.display = "block"
-                // let senderRef = doc.data().id
-                senderBalance = doc.data().balance
-                // doc.data() is never undefined for query doc snapshots
-                // console.log(doc.id, " => ", doc.data().id);
-                // console.log(senderRef);
-                lastName.textContent = ` ${doc.data().last}`
-                firstName.textContent = ` ${doc.data().displayName} pocket`
-                raydee.textContent = ` ${doc.data().balance}`
-            });
-        })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
-        });
-         function log(){
-            firebase.auth().signOut().then(() => {
-  alert ("Sign-out successful.")
-  window.location.href ="index.html"
-}).catch((error) => {
-  // An error happened.
-});
-         }
-    // transfer.addEventListener("click",myTransfer);
-
-
-
-   
-
-    // if (isNaN(amount) || amount <= 0) {
-    //     alert("Please enter a valid amount.");
-    //     return;
-    // }
-
-    // const user = auth.currentUser;
 
 
     function myTransfer(){
