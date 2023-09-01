@@ -132,8 +132,7 @@ const db = firebase.firestore();
        showName.innerHTML=`
        <i class='bx bx-rotate-right bx-spin'></i>`
     let accountNumber = parseInt(digits.value); 
-    let amount = payAmt.value
-    let transs = tranAmount.value
+    
      db.collection("account")
         .where("account", "==", accountNumber)
         .get()
@@ -182,13 +181,14 @@ function finalPay(){
     firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     var uid = user.uid;
-    var docRef = db.collection("account").doc(`${user.uid}`);
-
+    var docRef = db.collection("account").doc(`${uid}`);
+    let amount = payAmt.value
+    let transs = tranAmount.value
     docRef.get().then((doc) => {
         if (doc.exists) {
                senderData = doc.data();
                senderBalance = senderData.balance
-  
+            console.log(senderBalance);
 
         } else {
             console.log("No such document!");
