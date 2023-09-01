@@ -216,7 +216,7 @@
             </div>
             <div class="recipeient">
                 <div style="border-bottom: 1px solid blue; height: fit-content;"><input id="digits" type="number" placeholder="Enter 10 digits Account Number">
-                <button onclick="sho()" ><i class='bx bx-check' style="color:blue"></i></button></div>
+                <button onclick="show()" ><i class='bx bx-check' style="color:blue"></i></button></div>
                 <h1 id="showName"></h1>
                 <button onclick="pay()" id="">Next</button>
             </div>
@@ -407,96 +407,37 @@
     function myTransfer(){
            transferr.style.display ="block"
     }
-    // function show(){
-    //    showName.innerHTML=`
-    //    <i class='bx bx-rotate-right bx-spin'></i>`
-    // let accountNumber = parseInt(digits.value); 
-    // let amount = payAmt.value
-    // let transs = tranAmount.value
-   
-    // const userId = user.uid;
-    // db.collection("account")
-    //     .get()
-    //     .then((querySnapshot) => {
-    //         // let mede = []
-    //         querySnapshot.forEach((doc) => {
-    //         const senderData = querySnapshot.docs[0].data();
-    //         const senderBalance = senderData.balance;
-    //         console.log(senderData);
-    //         if (senderBalance => amount)
-    // db.collection("account")
-    //     .where("account", "==", accountNumber)
-    //     .get()
-    //     .then((querySnapshot) => {
-    //         if (!querySnapshot.empty) {
-    //             const accountData = querySnapshot.docs[0].data();
-    //             const accountId = accountData.Id
-    //             const accountName = accountData.displayName; 
-    //             const accountLast = accountData.last;
-    //             const accountNum = accountData.account;
-    //             const accountBalance = accountData.balance;
-    //             console.log(accountData); 
-    //             showName.innerHTML = `
-    //             <i class='bx bxs-user-check'></i>
-    //             ${accountName} ${accountLast} `;
-    //         tranNam.innerHTML = `${accountName} ${accountLast}`;
-    //         tranNum.innerHTML =`${accountNum}`
-    //         const newSenderBalance = senderBalance - amount;
-    //       const newAccountBalance = accountBalance + amount;
-    //       senderData.update({ balance: newSenderBalance })
-    //                             .then(() => {
-    //                                 firestore.collection("account").doc(accountId).update({ balance: newAccountBalance })
-    //                                     .then(() => {
-                                            
-    //                                         const receiptContent = generateTransferReceipt(amount, accountName);
-    //                                         const printWindow = window.open('', '_blank');
-
-    //                                         printWindow.document.write(`<pre>${accountData}</pre>`);
-    //                                         printWindow.document.close();
-    //                                         printWindow.print();
-    //                                         raydee.textContent = `Account Balance: $${newSenderBalance.toFixed(2)}`;
-    //                                           console.error("Error updating recipient balance:", error);
-    //                                     })
-    //                                 })
-    //                             .catch(error => {
-    //                                 console.error("Error updating sender balance:", error);
-    //                             });
-    //                     } else {
-    //                         alert("Recipient not found.");
-    //                     }
-    //                 })
-    //                 .catch(error => {
-    //                     console.error("Error fetching recipient data:", error);
-    //                 });
-   
-                // })
-                // })    
-    // } 
-
-    // db.collection("account")
-    //     .where("account", "==", accountNumber)
-    //     .get()
-    //     .then((querySnapshot) => {
-    //         if (!querySnapshot.empty) {
-    //             const accountData = querySnapshot.docs[0].data();
-    //             const accountName = accountData.name; 
-    //             const accountLast = accountData.last;
-    //             const accountNum = accountData.account;
-    //             const accountBalance = accountData.balance;
-    //             console.log(accountData); 
-    //             showName.innerHTML = `
-    //             <i class='bx bxs-user-check'></i>
-    //             ${accountName} ${accountLast} `;
-    //         tranNam.innerHTML = `${accountName} ${accountLast}`;
-    //         tranNum.innerHTML =`${accountNum}`
-
-
-    //         } else {
-    //             showName.innerHTML = "Account not found.";
-    //         }
+    function show(){
+       showName.innerHTML=`
+       <i class='bx bx-rotate-right bx-spin'></i>`
+    let accountNumber = parseInt(digits.value); 
+    let amount = payAmt.value
+    let transs = tranAmount.value
+     db.collection("account")
+        .where("account", "==", accountNumber)
+        .get()
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                const accountData = querySnapshot.docs[0].data();
+                const accountName = accountData.displayName; 
+                const accountLast = accountData.last;
+                const accountNum = accountData.account;
+                const accountBalance = accountData.balance;
+                console.log(accountData); 
+                showName.innerHTML = `
+                <i class='bx bxs-user-check'></i>
+                ${accountName} ${accountLast} `;
+            tranNam.innerHTML = `${accountName} ${accountLast}`;
+            tranNum.innerHTML =`${accountNum}`
+            } else {
+                showName.innerHTML = "Account not found.";
+            }
  
-    //     })
-    // }
+        })
+    }
+   
+
+   
        
 function pay(){
     if(!showName.innerHTML==""){
@@ -516,7 +457,37 @@ function showPin(){
     tranRem.innerHTML = rem.value
 
 }
+function finalPay(){
+    firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    var uid = user.uid;
+    var docRef = db.collection("account").doc(`${user.uid}`);
 
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+               scrn.style.display = "none"
+                screen.style.display = "block"
+                load.style.display = "block"
+                lastName.textContent = ` ${doc.data().last}`
+                firstName.textContent = ` ${doc.data().displayName} pocket`
+                raydee.textContent = `₦${doc.data().balance}`
+               console.log("Document data:", doc.data());
+  
+
+        } else {
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+
+  } else {
+    window.location.href ="login.html"
+  }
+});  
+    }
+     
+}
 // 
 // async function finalPay() {
 //     const user = firebase.auth().currentUser;
