@@ -465,13 +465,8 @@ function finalPay(){
 
     docRef.get().then((doc) => {
         if (doc.exists) {
-               scrn.style.display = "none"
-                screen.style.display = "block"
-                load.style.display = "block"
-                lastName.textContent = ` ${doc.data().last}`
-                firstName.textContent = ` ${doc.data().displayName} pocket`
-                raydee.textContent = `₦${doc.data().balance}`
-               console.log("Document data:", doc.data());
+               senderData = doc.data();
+               senderBalance = senderData.balance
   
 
         } else {
@@ -485,9 +480,8 @@ function finalPay(){
     window.location.href ="login.html"
   }
 });  
-    }
-     
-}
+    }  
+
 // 
 // async function finalPay() {
 //     const user = firebase.auth().currentUser;
