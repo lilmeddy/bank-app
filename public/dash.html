@@ -202,6 +202,7 @@
             </div>
         </section>
       <div id="airtime">
+        <button onclick="bak()"><i class='bx bx-chevron-left bx-flashing'></i></button>
         <input type="number" id="airtimeAmount" placeholder="Amount">
         <button onclick="buyAirtime()">Buy Airtime</button>
       </div>
@@ -319,10 +320,9 @@
     scrn.style.display = "block"
     screen.style.display = "none"
     load.style.display = "none"
-    firebase.auth().onAuthStateChanged((user) => {
+    function authAll(){
+        firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/v8/firebase.User
     var uid = user.uid;
     var docRef = db.collection("account").doc(`${user.uid}`);
 
@@ -333,12 +333,11 @@
                 load.style.display = "block"
                 lastName.textContent = ` ${doc.data().last}`
                 firstName.textContent = ` ${doc.data().displayName} pocket`
-                raydee.textContent = ` ${doc.data().balance}`
+                raydee.textContent = `₦${doc.data().balance}`
                console.log("Document data:", doc.data());
-
+  
 
         } else {
-            // doc.data() will be undefined in this case
             console.log("No such document!");
         }
     }).catch((error) => {
@@ -348,8 +347,10 @@
   } else {
     window.location.href ="login.html"
   }
-});
- 
+});  
+    }
+    
+ authAll()
     
 
          function log(){
@@ -357,52 +358,49 @@
   alert ("Sign-out successful.")
   window.location.href ="index.html"
 }).catch((error) => {
-  // An error happened.
 });
          }
          function myAirtime(){
    airtime.style.display="block"
     }
-    // function buyAirtime(){
+    function buyAirtime(){
+        const amountInput = document.getElementById("airtimeAmount");
+    const amount = amountInput.value;
+        firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    var uid = user.uid;
+    console.log(uid);
+    var docRef = db.collection("account").doc(`${uid}`);
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            const userData = doc.data();
+            console.log(userData);
+            const currentBalance = userData.balance;
+            console.log(currentBalance);
+            if (currentBalance >= amount) {
+                const newBalance = currentBalance - amount;
+                console.log(newBalance);
+                console.log(amount);
+                db.collection("account").doc(uid).update({
+                    balance: newBalance
+                }).then(() => {
+                    raydee.textContent = ` ₦${newBalance.toFixed(2)}`;
 
-    
-   
-   
-    const amountInput = document.getElementById("airtimeAmount");
-    const amount =amountInput.value;
-    // var uid = user.uid;
-    // console.log(user);
-//     db.collection("account").doc(uid).get()
-//         .then(doc => {
-//             const userData = doc.data();
-//             const currentBalance = userData.balance;
-
-//             if (currentBalance >= amount) {
-//                 const newBalance = currentBalance - amount;
-
-//                 db.collection("users").doc(uid).update({
-//                     balance: newBalance
-//                 }).then(() => {
-//                     const receiptContent = generateReceiptContent(amount);
-//                     const printWindow = window.open('', '_blank');
-
-//                     printWindow.document.write(`<pre>${receiptContent}</pre>`);
-//                     printWindow.document.close();
-//                     printWindow.print();
-//                     raydee.textContent = `Account Balance: $${newBalance.toFixed(2)}`;
-//                 }).catch(error => {
-//                     console.error("Error updating balance:", error);
-//                 });
-//             } else {
-//                 alert("Insufficient balance.");
-//             }
-//         })
-//         .catch(error => {
-//             console.error("Error fetching user data:", error);
-//         });
-  
-//     }
-// }) 
+                }).catch(error => {
+                    console.error("Error updating balance:", error);
+                });
+            }else{
+                alert("insufficient balance")
+            }
+        }
+        })
+        } else {
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+    }
 
 
 
