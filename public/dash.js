@@ -131,7 +131,8 @@ const db = firebase.firestore();
     function show(){
        showName.innerHTML=`
        <i class='bx bx-rotate-right bx-spin'></i>`
-    let accountNumber = parseInt(digits.value); 
+    
+       let accountNumber = parseInt(digits.value); 
     
      db.collection("account")
         .where("account", "==", accountNumber)
@@ -142,17 +143,16 @@ const db = firebase.firestore();
                 const accountName = accountData.displayName; 
                 const accountLast = accountData.last;
                 const accountNum = accountData.account;
-                const accountBalance = accountData.balance;
                 console.log(accountData); 
                 showName.innerHTML = `
                 <i class='bx bxs-user-check'></i>
                 ${accountName} ${accountLast} `;
             tranNam.innerHTML = `${accountName} ${accountLast}`;
             tranNum.innerHTML =`${accountNum}`
+
             } else {
                 showName.innerHTML = "Account not found.";
             }
- 
         })
     }
    
@@ -183,13 +183,107 @@ function finalPay(){
     var uid = user.uid;
     var docRef = db.collection("account").doc(`${uid}`);
     let amount = payAmt.value
-    let transs = tranAmount.value
+    let accountNumber = parseInt(digits.value); 
+    // let transs = tranAmount.value
     docRef.get().then((doc) => {
         if (doc.exists) {
-               senderData = doc.data();
-               senderBalance = senderData.balance
-            console.log(senderBalance);
+              const senderData = doc.data();
+              
+            db.collection("account")
+            .where("account", "==", accountNumber)
+            .get()
+            .then((querySnapshot) => {
+                if (!querySnapshot.empty) {
+                    const accountData = querySnapshot.docs[0].data();
+                    const accountName = accountData.displayName; 
+                    const accountLast = accountData.last;
+                    const accountNum = accountData.account;
+                  
+                    console.log(accountData); 
+                    showName.innerHTML = `
+                    <i class='bx bxs-user-check'></i>
+                    ${accountName} ${accountLast} `;
+                tranNam.innerHTML = `${accountName} ${accountLast}`;
+                tranNum.innerHTML =`${accountNum}`
 
+                const accountBalance = accountData.balance;
+              const senderBalance = senderData.balance
+             
+              console.log(senderBalance);
+                console.log(senderBalance);
+                if (!senderData || !accountData) {
+                                    alert("Sender or receiver not found.");
+                                }
+                    
+                                if (senderBalance < amount) {
+                                    alert("Insufficient balance.");
+                                }
+                    
+                                const newSenderBalance = senderBalance - amount;
+                                
+
+                                  console.log(newSenderBalance);
+                                //   console.log(newAccBalance);
+                                  db.collection("account").doc(uid).update({
+                                    balance: newSenderBalance
+                                }).then(() => {
+                                    raydee.textContent = ` ₦${newSenderBalance.toFixed(2)}`;
+                
+                                }).catch(error => {
+                                    console.error("Error updating balance:", error);
+                                });
+                                const accountNumber = parseInt(tranNum.innerText);
+                                const receiverRef =  db.collection("account")
+                                .where("account", "==", accountNumber)
+                               
+                             
+                                receiverRef.get()
+                                .then((querySnapshot) => {
+                                  if (!querySnapshot.empty) {
+                                    // Retrieve the recipient's document reference
+                                    const receiverDoc = querySnapshot.docs[0].ref;
+                                    receiverDoc.get()
+                                      .then((receiverData) => {
+                                        const accountBalance = receiverData.data().balance;
+                                        let acc = parseInt(accountBalance) 
+                                          let amt = parseInt(amount);
+                                      const newAccBalance =Number(acc) +Number(amt)
+                                      
+                                        const newreceiverBalance = newAccBalance;
+                              
+                                        
+                                        receiverDoc.update({
+                                          balance: newreceiverBalance
+                                        })
+                                        .then(() => {
+                                          // Update was successful
+                                          console.log("receiver's balance updated successfully");
+                                        })
+                                        .catch((error) => {
+                                          // Handle errors
+                                          console.error("Error updating receiver's balance:", error);
+                                        });
+                                      })
+                                      .catch((error) => {
+                                        // Handle errors when retrieving receiver's data
+                                        console.error("Error retrieving receiver's data:", error);
+                                      });
+                                  } else {
+                                    // receiver account not found
+                                    console.error("receiver account not found.");
+                                  }
+                                })
+                                .catch((error) => {
+                                  // Handle errors when querying receiver's account
+                                  console.error("Error querying receiver's account:", error);
+                                });
+                              
+
+                           
+                } else {
+                    showName.innerHTML = "Account not found.";
+                }
+            })
         } else {
             console.log("No such document!");
         }
