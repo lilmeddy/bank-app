@@ -38,6 +38,7 @@ const db = firebase.firestore();
     let reciept = document.getElementById("reciept")
     let rem = document.getElementById("rem")
     let tranRem = document.getElementById("tranRem")
+    let transaction =  Math.floor(Math.random() * 10000000000000)
     scrn.style.display = "block"
     screen.style.display = "none"
     load.style.display = "none"
@@ -233,12 +234,23 @@ function finalPay(){
                                     <span>Transaction details</span>
                                     </div>  
                                     <div class = "rec-body">
-                                    <div class="rec-payFlex">
+                                    <div class="rec-flex">
                                      <div class ="rec-icon">
                                      <i class='bx bxs-check-circle'></i>
                                      <p>Payment successful</p>
+
                                      </div>
-                                     
+
+                                     <div class ="rec-icon">
+                                     <i class='bx bxs-check-circle'></i>
+                                     <p>Processing by bank</p>
+                                     </div>
+
+                                     <div class ="rec-icon">
+                                     <i class='bx bxs-check-circle'></i>
+                                     <p>Received by bank</p>
+                                     </div>
+                                    </div>
                                     </div>
                                     </div>
                                     `
