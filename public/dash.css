@@ -282,11 +282,11 @@ main{
 #reciept{
     position:absolute;
     top:0;
-    left: 70%;
+    left: 40%;
     display: none;
     background-color: #fff;
     height: 100%;
-    width: 30%;
+    width: 60%;
     padding: 15px;
     transition: 3s all ease-in-out;
     box-shadow: 2px 4px 4px 4px rgba(0,0,0,0.5);

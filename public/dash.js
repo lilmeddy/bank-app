@@ -36,6 +36,7 @@ const db = firebase.firestore();
     let tranAmount = document.getElementById("tranAmount")
     let method = document.getElementById("method")
     let reciept = document.getElementById("reciept")
+    let final = document.getElementById("final")
     let rem = document.getElementById("rem")
     let tranRem = document.getElementById("tranRem")
     let transaction =  Math.floor(Math.random() * 10000000000000)
@@ -209,7 +210,7 @@ function finalPay(){
 
 
               const senderBalance = senderData.balance
-             
+             const senderPin = senderData.pin
               console.log(senderBalance);
                 console.log(senderBalance);
                 if (!senderData || !accountData) {
@@ -219,7 +220,9 @@ function finalPay(){
                                 if (senderBalance < amount) {
                                     alert("Insufficient balance.");
                                 }
-                    
+                                if (final.value =  senderPin){
+                                    alert("invalid pin")
+                                
                                 const newSenderBalance = senderBalance - amount;
                                 
 
@@ -250,6 +253,13 @@ function finalPay(){
                                      <i class='bx bxs-check-circle'></i>
                                      <p>Received by bank</p>
                                      </div>
+                                    </div>
+                                    <h1>
+                                    The recipient account is expected to be credited within 5 minutes,
+                                     subject to notification by the bank.
+                                    </h1>
+                                    <div class="rec-flex">
+
                                     </div>
                                     </div>
                                     </div>
@@ -301,7 +311,9 @@ function finalPay(){
                                   console.error("Error querying receiver's account:", error);
                                 });
                               
-
+                            }else{
+                                alert("invalid pin")
+                            }
                            
                 } else {
                     showName.innerHTML = "Account not found.";
