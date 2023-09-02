@@ -39,7 +39,8 @@ const db = firebase.firestore();
     let final = document.getElementById("final")
     let rem = document.getElementById("rem")
     let tranRem = document.getElementById("tranRem")
-    let transaction =  Math.floor(Math.random() * 10000000000000)
+    let transaction =  Math.floor(Math.random() * 10000000000000000000)
+    let transactio =  Math.floor(Math.random() * 10000000000000000)
     scrn.style.display = "block"
     screen.style.display = "none"
     load.style.display = "none"
@@ -207,7 +208,8 @@ function finalPay(){
                     ${accountName} ${accountLast} `;
                 tranNam.innerHTML = `${accountName} ${accountLast}`;
                 tranNum.innerHTML =`${accountNum}`
-
+                 const transNum = tranNum.innerHTML
+                 const transNam = tranNam.innerHTML
 
               const senderBalance = senderData.balance
              const senderPin = senderData.pin
@@ -258,10 +260,58 @@ function finalPay(){
                                     The recipient account is expected to be credited within 5 minutes,
                                      subject to notification by the bank.
                                     </h1>
-                                    <div class="rec-flex">
-
+                                    <div class="payFlex">
+                                    <p><i class='bx bx-wallet-alt'></i> <span>Transfer to bank</span></p>
+                                    <h1>-₦${amount}</h1>
+                                </div>
+                                <div class="payFlex">
+                                    <p>Order Amount</p>
+                                     <h1>₦${amount}</h1>
+                                     </div>
+                                     <div class="payFlex">
+                                    <p>Fee</p>
+                                     <h1>₦0.00</h1>
+                                     </div>
+                                     <div class ="rec-time"></div>
+                                     <div class="payFlex">
+                                     <p>Status</p>
+                                      <h1>Success</h1>
+                                      </div>
+                                      <div class="payFlex">
+                                      <p>Bank Name</p>
+                                       <h1>Piggy Vest</h1>
+                                       </div>
+                                       <div class="payFlex">
+                                       <p>Account Number</p>
+                                        <h1>${transNum}</h1>
+                                        </div>
+                                        <div class="payFlex">
+                                        <p>Account Name</p>
+                                         <h1>${transNam}</h1>
+                                         </div>
+                                         <div class="payFlex">
+                                        <p>Paid with</p>
+                                         <h1 id="payMethod"></h1>
+                                         </div>
+                                         <div class="payFlex">
+                                         <p>SessionID</p>
+                                          <h1>${transaction}</h1>
+                                          </div>
+                                          <div class="payFlex">
+                                          <p>VAT</p>
+                                           <h1>₦0.00</h1>
+                                           </div>
+                                           <div class="payFlex">
+                                          <p>Remark</p>
+                                           <h1>${rem.value}</h1>
+                                           </div>
+                                           <div class="payFlex">
+                                           <hr>
+                                           <p>Transaction Number</p>
+                                            <h1>${transactio}</h1>
+                                            </div>
                                     </div>
-                                    </div>
+                                    <button onclick="screen()">Download Reciept</button>
                                     </div>
                                     `
                 
@@ -293,8 +343,6 @@ function finalPay(){
                                         .then(() => {
                                              trans.style.display = "none"
                                             reciept.style.display ="block"
-                                          
-                                        //   console.log("receiver's balance updated successfully");
                                         })
                                         .catch((error) => {
                                           console.error("Error updating receiver's balance:", error);
