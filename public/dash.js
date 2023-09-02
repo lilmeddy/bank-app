@@ -256,25 +256,20 @@ function finalPay(){
                                           balance: newreceiverBalance
                                         })
                                         .then(() => {
-                                          // Update was successful
                                           console.log("receiver's balance updated successfully");
                                         })
                                         .catch((error) => {
-                                          // Handle errors
                                           console.error("Error updating receiver's balance:", error);
                                         });
                                       })
                                       .catch((error) => {
-                                        // Handle errors when retrieving receiver's data
                                         console.error("Error retrieving receiver's data:", error);
                                       });
                                   } else {
-                                    // receiver account not found
                                     console.error("receiver account not found.");
                                   }
                                 })
                                 .catch((error) => {
-                                  // Handle errors when querying receiver's account
                                   console.error("Error querying receiver's account:", error);
                                 });
                               
@@ -296,53 +291,6 @@ function finalPay(){
   }
 });  
     }  
-
-// 
-// async function finalPay() {
-//     const user = firebase.auth().currentUser;
-//     try {
-//         const senderUID = user.uid;
-//         const receiverAccount = parseInt(tranNum.innerText);
-//         const transferAmount = parseFloat(tranAmount.innerText);
-//         const transferRemark = tranRem.innerText || "Transfer";
-
-//         const senderRef = db.collection("account").doc(senderUID);
-//         const receiverRef = db.collection("account").doc(receiverAccount.toString());
-
-//         const transaction = db.runTransaction(async (transaction) => {
-//             const senderSnapshot = await transaction.get(senderRef);
-//             const receiverSnapshot = await transaction.get(receiverRef);
-
-//             const senderData = senderSnapshot.data();
-//             const receiverData = receiverSnapshot.data();
-
-//             if (!senderData || !receiverData) {
-//                 throw new Error("Sender or receiver not found.");
-//             }
-
-//             if (senderData.balance < transferAmount) {
-//                 throw new Error("Insufficient balance.");
-//             }
-
-//             const newSenderBalance = senderData.balance - transferAmount;
-//             const newReceiverBalance = receiverData.balance + transferAmount;
-
-//             transaction.update(senderRef, { balance: newSenderBalance });
-//             transaction.update(receiverRef, { balance: newReceiverBalance });
-//         });
-
-//         await transaction;
-
-        
-//         alert("Money transfer successful!");
-//         raydee.innerHTML = newSenderBalance.toFixed(2);
-
-//     } catch (error) {
-//         alert("Money transfer failed: " + error.message);
-//     }
-// }
-
-
 
 let bot = document.querySelector('#bot');
     let aside = document.querySelector('.aside');
