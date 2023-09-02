@@ -206,7 +206,7 @@ function finalPay(){
                 tranNam.innerHTML = `${accountName} ${accountLast}`;
                 tranNum.innerHTML =`${accountNum}`
 
-                const accountBalance = accountData.balance;
+
               const senderBalance = senderData.balance
              
               console.log(senderBalance);
@@ -223,11 +223,25 @@ function finalPay(){
                                 
 
                                   console.log(newSenderBalance);
-                                //   console.log(newAccBalance);
                                   db.collection("account").doc(uid).update({
                                     balance: newSenderBalance
                                 }).then(() => {
                                     raydee.textContent = ` ₦${newSenderBalance.toFixed(2)}`;
+                                    reciept.innerHTML = `
+                                    <div class="rec-top">
+                                    <button onclick="bck()"><i class='bx bx-chevron-left bx-flashing'></i></button> 
+                                    <span>Transaction details</span>
+                                    </div>  
+                                    <div class = "rec-body">
+                                    <div class="rec-payFlex">
+                                     <div class ="rec-icon">
+                                     <i class='bx bxs-check-circle'></i>
+                                     <p>Payment successful</p>
+                                     </div>
+                                     
+                                    </div>
+                                    </div>
+                                    `
                 
                                 }).catch(error => {
                                     console.error("Error updating balance:", error);
@@ -240,7 +254,6 @@ function finalPay(){
                                 receiverRef.get()
                                 .then((querySnapshot) => {
                                   if (!querySnapshot.empty) {
-                                    // Retrieve the recipient's document reference
                                     const receiverDoc = querySnapshot.docs[0].ref;
                                     receiverDoc.get()
                                       .then((receiverData) => {
@@ -256,7 +269,10 @@ function finalPay(){
                                           balance: newreceiverBalance
                                         })
                                         .then(() => {
-                                          console.log("receiver's balance updated successfully");
+                                             trans.style.display = "none"
+                                            reciept.style.display ="block"
+                                          
+                                        //   console.log("receiver's balance updated successfully");
                                         })
                                         .catch((error) => {
                                           console.error("Error updating receiver's balance:", error);
@@ -266,7 +282,7 @@ function finalPay(){
                                         console.error("Error retrieving receiver's data:", error);
                                       });
                                   } else {
-                                    console.error("receiver account not found.");
+                                    alert("receiver account not found.");
                                   }
                                 })
                                 .catch((error) => {
@@ -291,6 +307,8 @@ function finalPay(){
   }
 });  
     }  
+
+
 
 let bot = document.querySelector('#bot');
     let aside = document.querySelector('.aside');

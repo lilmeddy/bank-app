@@ -278,7 +278,8 @@ main{
 #transferr,
 #payment,
 #trans,
-#airtime{
+#airtime,
+#reciept{
     position:absolute;
     top:0;
     left: 70%;
