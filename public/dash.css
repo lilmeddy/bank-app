@@ -280,7 +280,8 @@ main{
 #trans,
 #airtime,
 #reciept,
-#download{
+#download,
+#history{
     position:absolute;
     top:0;
     left: 40%;

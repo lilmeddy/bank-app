@@ -39,9 +39,9 @@ const db = firebase.firestore();
     let final = document.getElementById("final")
     let rem = document.getElementById("rem")
     let tranRem = document.getElementById("tranRem")
-    let download = document.getElementById("document")
+    let download = document.getElementById("download")
     let history = document.getElementById("history")
-    let transaction =  Math.floor(Math.random() * 10000000000000000000)
+    let transac =  Math.floor(Math.random() * 10000000000000000000)
     let transactio =  Math.floor(Math.random() * 10000000000000000)
     scrn.style.display = "block"
     screen.style.display = "none"
@@ -197,6 +197,8 @@ function finalPay(){
               const senderName = doc.data().last
               const senderNam = doc.data().displayName
               const fullName = `${senderName} ${senderNam}`
+              
+              const date = new Date(); 
             db.collection("account")
             .where("account", "==", accountNumber)
             .get()
@@ -237,161 +239,11 @@ function finalPay(){
                                   db.collection("account").doc(uid).update({
                                     balance: newSenderBalance
                                 }).then(() => {
+                                    
                                     const who = "sent";
                                     raydee.textContent = ` ₦${newSenderBalance.toFixed(2)}`;
-                                    reciept.innerHTML = `
-                                    <div class="rec-top">
-                                    <button onclick="bck()"><i class='bx bx-chevron-left bx-flashing'></i></button> 
-                                    <span>Transaction details</span>
-                                    </div>  
-                                    <div class = "rec-body">
-                                    <div class="rec-flex">
-                                     <div class ="rec-icon">
-                                     <i class='bx bxs-check-circle'></i>
-                                     <p>Payment successful</p>
 
-                                     </div>
-
-                                     <div class ="rec-icon">
-                                     <i class='bx bxs-check-circle'></i>
-                                     <p>Processing by bank</p>
-                                     </div>
-
-                                     <div class ="rec-icon">
-                                     <i class='bx bxs-check-circle'></i>
-                                     <p>Received by bank</p>
-                                     </div>
-                                    </div>
-                                    <h1>
-                                    The recipient account is expected to be credited within 5 minutes,
-                                     subject to notification by the bank.
-                                    </h1>
-                                    <div class="payFlex">
-                                    <p><i class='bx bx-wallet-alt'></i> <span>Transfer to bank</span></p>
-                                    <h1>-₦${amount}</h1>
-                                </div>
-                                <div class="payFlex">
-                                    <p>Order Amount</p>
-                                     <h1>₦${amount}</h1>
-                                     </div>
-                                     <div class="payFlex">
-                                    <p>Fee</p>
-                                     <h1>₦0.00</h1>
-                                     </div>
-                                     <div class ="rec-time"></div>
-                                     <div class="payFlex">
-                                     <p>Status</p>
-                                      <h1>Success</h1>
-                                      </div>
-                                      <div class="payFlex">
-                                      <p>Bank Name</p>
-                                       <h1>Piggy Vest</h1>
-                                       </div>
-                                       <div class="payFlex">
-                                       <p>Account Number</p>
-                                        <h1>${transNum}</h1>
-                                        </div>
-                                        <div class="payFlex">
-                                        <p>Account Name</p>
-                                         <h1>${transNam}</h1>
-                                         </div>
-                                         <div class="payFlex">
-                                        <p>Paid with</p>
-                                         <h1 id="payMethod"></h1>
-                                         </div>
-                                         <div class="payFlex">
-                                         <p>SessionID</p>
-                                          <h1>${transaction}</h1>
-                                          </div>
-                                          <div class="payFlex">
-                                          <p>VAT</p>
-                                           <h1>₦0.00</h1>
-                                           </div>
-                                           <div class="payFlex">
-                                          <p>Remark</p>
-                                           <h1>${rem.value}</h1>
-                                           </div>
-                                           <div class="payFlex">
-                                           <hr>
-                                           <p>Transaction Number</p>
-                                            <h1>${transactio}</h1>
-                                            </div>
-                                    </div>
-                                    <button onclick="screeen()">history Reciept</button>
-                                    </div>
-                                     
-                                    `
-                                     
-                                    history.innerHTML += `
-                                    <div class="white">
-                                    <div><i class='bx bx-wallet-alt'></i></div>
-                                    <div class="pay-flex">
-                                        <div>
-                                            <h1>Money <span>${who}</span></h1>
-                                            
-                                        </div>
-                                        <div>
-                                            <h1><span>-</span><span>${amount}</span></h1>
-                                            
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                 </div>
-                                    `
-                                    // download.innerHTML =`
-                                    // <div class="rec-top">
-                                    // <button onclick="bck()"><i class='bx bx-chevron-left bx-flashing'></i></button> 
-                                    // <span>Transaction details</span>
-                                    // </div>  
-                                    // <div class = "rec-body">
-                                    // <div class="rec-flex">
-                                    //  <div class ="rec-icon">
-                                    //  <i class='bx bxs-check-circle'></i>
-                                    //  <p>Payment successful</p>
-                                    //  <div class="payFlex">
-                                    //  <p>Order Amount</p>
-                                    //   <h1>₦${amount}</h1>
-                                    //   </div>
-                                    //   <div class="payFlex">
-                                    //  <p>Fee</p>
-                                    //   <h1>₦0.00</h1>
-                                    //   </div>
-                                    //   <div class ="rec-time"></div>
-                                    //   <div class="payFlex">
-                                    //   <p>Status</p>
-                                    //    <h1>Success</h1>
-                                    //    </div>
-                                    //    <div class="payFlex">
-                                    //    <p>Bank Name</p>
-                                    //     <h1>Piggy Vest</h1>
-                                    //     </div>
-                                    //     <div class="payFlex">
-                                    //     <p>Account Number</p>
-                                    //      <h1>${transNum}</h1>
-                                    //  </div>
-                                    //  <div class="payFlex">
-                                    //     <p>Account Name</p>
-                                    //      <h1>${transNam}</h1>
-                                    //      </div>
-                                    //      <div class="payFlex">
-                                    //     <p>Sender Account</p>
-                                    //      <h1>${senderAcc}</h1>
-                                    //      </div>
-                                    //      <div class="payFlex">
-                                    //      <p>Sender Name</p>
-                                    //       <h1>${fullName}</h1>
-                                    //       </div>
-                                    //      <div class="payFlex">
-                                    //      <p>Remark</p>
-                                    //       <h1>${rem.value}</h1>
-                                    //       </div>
-                                    //       <div class="payFlex">
-                                    //       <hr>
-                                    //       <p>Transaction Number</p>
-                                    //        <h1>${transactio}</h1>
-                                    //        </div>
-                                    // `
+                                   
                 
                                 }).catch(error => {
                                     console.error("Error updating balance:", error);
@@ -419,28 +271,34 @@ function finalPay(){
                                           balance: newreceiverBalance
                                         })
                                         .then(() => {
-                                            const who = "received";
+                                            // const who = "received";
                                              trans.style.display = "none"
                                             reciept.style.display ="block"
 
-                                            history.innerHTML += `
-                                            <div class="white">
-                                            <div><i class='bx bx-wallet-alt'></i></div>
-                                            <div class="pay-flex">
-                                                <div>
-                                                    <h1>Money <span>${who}</span></h1>
-                                                    
-                                                </div>
-                                                <div>
-                                                    <h1><span>*</span><span>${amount}</span></h1>
-                                                    
-                                                </div>
-                                            </div>
-                                            
-                                            
-                                         </div>
-                                            `
+                                      
                                         })
+                                        const transactionsRef = db.collection("transactions");
+                                        const date = new Date(); 
+                                        transactionsRef
+                                        .add({
+                                          senderUID: senderData.id,
+                                          receiverUID: accountData.id,
+                                          senderDetails : fullName,
+                                          receiverDetails:transNam,
+                                          transac:transac,
+                                          amount: amount,
+                                          transactio: transactio,
+                                          type: type, 
+                                          sign: sign,
+                                          date: date,
+                                        })
+                                        .then((docRef) => {
+                                          console.log("Transaction added with ID: ", docRef.id);
+                                        })
+                                        .catch((error) => {
+                                          console.error("Error adding transaction: ", error);
+                                        });
+                                    
                                         .catch((error) => {
                                           console.error("Error updating receiver's balance:", error);
                                         });
@@ -477,11 +335,21 @@ function finalPay(){
 });  
     }  
 
+    function myHistory(){
+        history.style.display ="block"
 
-    function screeen(){
-        finalPay()
-        window.print(download.innerHTML)
     }
+    history.addEventListener('click', viewHistory);
+    function viewHistory(){
+        history.style.display = "none"
+        download.style.display = "block"
+    }
+    
+
+    // function screeen(){
+    //     finalPay()
+    //     window.print(download.innerHTML)
+    // }
 
 let bot = document.querySelector('#bot');
     let aside = document.querySelector('.aside');
