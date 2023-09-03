@@ -288,7 +288,8 @@ function finalPay(){
                                           transac:transac,
                                           amount: amount,
                                           transactio: transactio,
-                                          type: type, 
+                                          type: "Dredited", 
+                                          typ: "Debited", 
                                           sign: sign,
                                           date: date,
                                         })
@@ -335,6 +336,46 @@ function finalPay(){
 });  
     }  
 
+function fetchAndDisplayTransactions() {
+         let recNum = document.getElementById("recNum")
+         let recNam = document.getElementById("recNam")
+         let recSess = document.getElementById("recSess")
+         let recRem = document.getElementById("recRem")
+         let recTra = document.getElementById("recTra")
+    const user = firebase.auth().currentUser;
+    if (user) {
+      const uid = user.uid;
+      const transactionsRef = db.collection("transactions");
+      transactionsRef
+        .where("senderUID", "==", uid)
+        .orderBy("date", "desc")
+        .get()
+        .then((querySnapshot) => {
+          const transactions = [];
+          querySnapshot.forEach((doc) => {
+            transactions.push(doc.data());
+          });
+          transactionsList.innerHTML = "";
+          if (transactions.length === 0) {
+            transactionsList.innerHTML = "No transactions found.";
+          } else {
+            transactions.forEach((transaction) => {
+             
+
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching transactions:", error);
+        });
+    } else {
+      transactionsList.innerHTML = "Please log in to view transactions.";
+    }
+  }
+  
+  fetchAndDisplayTransactions();
+
+  
     function myHistory(){
         history.style.display ="block"
 

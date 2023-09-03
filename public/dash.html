@@ -333,7 +333,7 @@
                          </div>
                          <div class="payFlex">
                          <p>SessionID</p>
-                          <h1 id=""></h1>
+                          <h1 id="recSess"></h1>
                           </div>
                           <div class="payFlex">
                           <p>VAT</p>
@@ -341,12 +341,12 @@
                            </div>
                            <div class="payFlex">
                           <p>Remark</p>
-                           <h1>${rem.value}</h1>
+                           <h1 id="recRem"></h1>
                            </div>
                            <div class="payFlex">
                            <hr>
                            <p>Transaction Number</p>
-                            <h1>${transactio}</h1>
+                            <h1 id="recTra"></h1>
                             </div>
                     </div>
                     <button onclick="screeen()">history Reciept</button>
@@ -378,7 +378,7 @@
     reciept.innerHTML = `
     
 
-history.innerHTML += `
+<!-- history.innerHTML += `
 <div class="white">
 <div><i class='bx bx-wallet-alt'></i></div>
 <div class="pay-flex">
@@ -489,7 +489,7 @@ download.innerHTML = `
     </div>
     
     
- </div>
+ </div> -->
     `
     download.innerHTML =`
     <div class="rec-top">
