@@ -208,6 +208,7 @@ function finalPay(){
                     const accountName = accountData.displayName; 
                     const accountLast = accountData.last;
                     const accountNum = accountData.account;
+                    // const accountID = accountData.id
                   
                     console.log(accountData); 
                     showName.innerHTML = `
@@ -277,28 +278,29 @@ function finalPay(){
 
                                       
                                         })
-                                        const transactionsRef = db.collection("transactions");
+                                        const transactionsRef = db.collection("transactions").doc(uid);
                                         const date = new Date(); 
                                         transactionsRef
-                                        .add({
-                                          senderUID: senderData.id,
-                                          receiverUID: accountData.id,
+                                        .set({
+                                          senderUID: senderData.userId,
+                                          receiverUID: accountData.userId,
                                           senderDetails : fullName,
                                           receiverDetails:transNam,
                                           transac:transac,
                                           amount: amount,
                                           transactio: transactio,
-                                          type: "Dredited", 
+                                          type: "Credited", 
                                           typ: "Debited", 
-                                          sign: sign,
+                                          sign: "-",
+                                          sin: "+",
                                           date: date,
                                         })
-                                        .then((docRef) => {
-                                          console.log("Transaction added with ID: ", docRef.id);
+                                        .then(() => {
+                                          console.log("Transaction added with ID: ", uid);
                                         })
                                         .catch((error) => {
                                           console.error("Error adding transaction: ", error);
-                                        });
+                                        })
                                     
                                         .catch((error) => {
                                           console.error("Error updating receiver's balance:", error);
@@ -336,7 +338,7 @@ function finalPay(){
 });  
     }  
 
-function fetchAndDisplayTransactions() {
+function fetchDis() {
          let recNum = document.getElementById("recNum")
          let recNam = document.getElementById("recNam")
          let recSess = document.getElementById("recSess")
@@ -345,6 +347,7 @@ function fetchAndDisplayTransactions() {
     const user = firebase.auth().currentUser;
     if (user) {
       const uid = user.uid;
+      const transactionsList = document.getElementById("transactionsList");
       const transactionsRef = db.collection("transactions");
       transactionsRef
         .where("senderUID", "==", uid)
@@ -353,7 +356,7 @@ function fetchAndDisplayTransactions() {
         .then((querySnapshot) => {
           const transactions = [];
           querySnapshot.forEach((doc) => {
-            transactions.push(doc.data());
+            transactions.push({ id: doc.id, ...doc.data() });;
           });
           transactionsList.innerHTML = "";
           if (transactions.length === 0) {
@@ -361,6 +364,47 @@ function fetchAndDisplayTransactions() {
           } else {
             transactions.forEach((transaction) => {
              
+              const listItem = document.createElement("li");
+              listItem.textContent = `Type: ${transaction.typ}, Amount:${transaction.sign} ₦${transaction.amount}, Date: ${transaction.date.toDate()}`;
+              transactionsList.appendChild(listItem);
+              listItem.style.cursor = "pointer"
+              listItem.addEventListener("click", () => {
+                alert(
+                  `Transaction Details:\nType: ${transaction.typ}\nAmount: ${transaction.sign} ₦${transaction.amount}\nDate: ${transaction.date.toDate()}`
+                );
+              });
+               
+
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching transactions:", error);
+        });
+        transactionsRef
+        .where("recieverUID", "==", uid)
+        .orderBy("date", "desc")
+        .get()
+        .then((querySnapshot) => {
+          const transactions = [];
+          querySnapshot.forEach((doc) => {
+            transactions.push({ id: doc.id, ...doc.data() });;
+          });
+          transactionsList.innerHTML = "";
+          if (transactions.length === 0) {
+            transactionsList.innerHTML = "No transactions found.";
+          } else {
+            transactions.forEach((transaction) => {
+             
+              const listItem = document.createElement("li");
+              listItem.textContent = `Type: ${transaction.type}, Amount: ${transaction.sin} ₦${transaction.amount}, Date: ${transaction.date.toDate()}`;
+              transactionsList.appendChild(listItem);
+              listItem.style.cursor = "pointer"
+              listItem.addEventListener("click", () => {
+                alert(
+                  `Transaction Details:\nType: ${transaction.type}\nAmount:  ${transaction.sin} ₦${transaction.amount}\nDate: ${transaction.date.toDate()}`
+                );
+              });
 
             });
           }
@@ -373,7 +417,7 @@ function fetchAndDisplayTransactions() {
     }
   }
   
-  fetchAndDisplayTransactions();
+  fetchDis();
 
   
     function myHistory(){
