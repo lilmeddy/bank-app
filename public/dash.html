@@ -272,7 +272,8 @@
                 <div class="rec-top">
                     <button onclick="bck()"><i class='bx bx-chevron-left bx-flashing'></i></button> 
                     <span>Transaction details</span>
-                    </div>  
+                    </div> 
+                    <div class="rec-flex">
                     <div class = "rec-body">
                     <div class="rec-flex">
                      <div class ="rec-icon">
@@ -291,6 +292,7 @@
                      <p>Received by bank</p>
                      </div>
                     </div>
+                </div>
                     <h1>
                     The recipient account is expected to be credited within 5 minutes,
                      subject to notification by the bank.
@@ -301,7 +303,7 @@
                 </div>
                 <div class="payFlex">
                     <p>Order Amount</p>
-                     <h1>₦${amount}</h1>
+                     <h1 id="recAmt"></h1>
         
                 </div>
                      <div class="payFlex">
@@ -395,33 +397,7 @@
 
 </div>
 `
-download.innerHTML = `
-<div class="payFlex">
-  <p>Money Recieved</p>
-   <h1>Success</h1>
-   </div>
-   <div class="payFlex">
-   <p>Bank Name</p>
-    <h1>Piggy Vest</h1>
-    </div>
-     <div class="payFlex">
-    <p>Sender Account</p>
-     <h1>${senderAcc}</h1>
-     </div>
-     <div class="payFlex">
-     <p>Sender Name</p>
-      <h1>${fullName}</h1>
-      </div>
-     <div class="payFlex">
-     <p>Remark</p>
-      <h1>${rem.value}</h1>
-      </div>
-      <div class="payFlex">
-      <hr>
-      <p>Transaction Number</p>
-       <h1>${transactio}</h1>
-       </div>
-`
+
 <div class="payFlex">
     <p>Order Amount</p>
      <h1>₦${amount}</h1>

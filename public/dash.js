@@ -240,8 +240,33 @@ function finalPay(){
                                   db.collection("account").doc(uid).update({
                                     balance: newSenderBalance
                                 }).then(() => {
-                                    
-                                    const who = "sent";
+                                    download.innerHTML = `
+                                    <div class="payFlex">
+                                      <p>Money Recieved</p>
+                                       <h1>Success</h1>
+                                       </div>
+                                       <div class="payFlex">
+                                       <p>Bank Name</p>
+                                        <h1>Piggy Vest</h1>
+                                        </div>
+                                         <div class="payFlex">
+                                        <p>Sender Account</p>
+                                         <h1>${senderAcc}</h1>
+                                         </div>
+                                         <div class="payFlex">
+                                         <p>Sender Name</p>
+                                          <h1>${fullName}</h1>
+                                          </div>
+                                         <div class="payFlex">
+                                         <p>Remark</p>
+                                          <h1>${rem.value}</h1>
+                                          </div>
+                                          <div class="payFlex">
+                                          <hr>
+                                          <p>Transaction Number</p>
+                                           <h1>${transactio}</h1>
+                                           </div>
+                                    `
                                     raydee.textContent = ` ₦${newSenderBalance.toFixed(2)}`;
 
                                    
@@ -278,6 +303,17 @@ function finalPay(){
 
                                       
                                         })
+                                        let recNum = document.getElementById("recNum")
+                                        let recNam = document.getElementById("recNam")
+                                        let recSess = document.getElementById("recSess")
+                                        let recRem = document.getElementById("recRem")
+                                        let recTra = document.getElementById("recTra")
+                                        let recAmt = document.getElementById("recAmt")
+                                        recNum.innerHTML = `${accountNumber}`
+                                        recNam.innerHTML = `${accountName}`
+                                        recAmt.innerHTML = `${amount}`
+                                        recSess.innerHTML = `${transac}`
+                                        recTra.innerHTML = `${transactio}`
                                         const transactionsRef = db.collection("transactions").doc(uid);
                                         const date = new Date(); 
                                         transactionsRef
@@ -339,11 +375,7 @@ function finalPay(){
     }  
 
 function fetchDis() {
-         let recNum = document.getElementById("recNum")
-         let recNam = document.getElementById("recNam")
-         let recSess = document.getElementById("recSess")
-         let recRem = document.getElementById("recRem")
-         let recTra = document.getElementById("recTra")
+        
     const user = firebase.auth().currentUser;
     if (user) {
       const uid = user.uid;
@@ -358,6 +390,7 @@ function fetchDis() {
           querySnapshot.forEach((doc) => {
             transactions.push({ id: doc.id, ...doc.data() });;
           });
+          recNam.innerHTML = 
           transactionsList.innerHTML = "";
           if (transactions.length === 0) {
             transactionsList.innerHTML = "No transactions found.";
@@ -424,17 +457,17 @@ function fetchDis() {
         history.style.display ="block"
 
     }
-    history.addEventListener('click', viewHistory);
-    function viewHistory(){
-        history.style.display = "none"
-        download.style.display = "block"
-    }
+    // history.addEventListener('click', viewHistory);
+    // function viewHistory(){
+    //     history.style.display = "none"
+    //     download.style.display = "block"
+    // }
     
 
-    // function screeen(){
-    //     finalPay()
-    //     window.print(download.innerHTML)
-    // }
+    function screeen(){
+        finalPay()
+        window.print(download.innerHTML)
+    }
 
 let bot = document.querySelector('#bot');
     let aside = document.querySelector('.aside');
@@ -443,8 +476,20 @@ let bot = document.querySelector('#bot');
         aside.classList.toggle('active');
 
     };
+    function bak(){
+        airtime.style.display = "none"
+    }
+    function bac(){
+        trans.style.display = "none"
+    }
 
-
+function back (){
+    transferr.style.display = "none"
+}
+function bck(){
+    reciept.style.display = "none"
+    trans.style.display = "block"
+}
 
    
 
