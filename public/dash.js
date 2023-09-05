@@ -9,8 +9,6 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-
-
  
 
    const user = firebase.auth().currentUser;
@@ -50,8 +48,7 @@ const db = firebase.firestore();
         firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     var uid = user.uid;
-    var docRef = db.collection("account").doc(`${user.uid}`);
-
+    var docRef = db.collection("account").doc(`${uid}`);
     docRef.get().then((doc) => {
         if (doc.exists) {
                scrn.style.display = "none"
@@ -314,7 +311,7 @@ function finalPay(){
                                         recAmt.innerHTML = `${amount}`
                                         recSess.innerHTML = `${transac}`
                                         recTra.innerHTML = `${transactio}`
-                                        const transactionsRef = db.collection("transactions").doc(uid);
+                                        const transactionsRef = db.collection("transactions").doc();
                                         const date = new Date(); 
                                         transactionsRef
                                         .set({
@@ -325,10 +322,8 @@ function finalPay(){
                                           transac:transac,
                                           amount: amount,
                                           transactio: transactio,
-                                          type: "Credited", 
-                                          typ: "Debited", 
-                                          sign: "-",
-                                          sin: "+",
+                                        //   type: sign === '+' ? 'Credited' : 'Debited',
+                                        //   sign: sign, 
                                           date: date,
                                         })
                                         .then(() => {
@@ -374,99 +369,89 @@ function finalPay(){
 });  
     }  
 
-function fetchDis() {
-        
-    const user = firebase.auth().currentUser;
-    if (user) {
-      const uid = user.uid;
-      const transactionsList = document.getElementById("transactionsList");
-      const transactionsRef = db.collection("transactions");
-      transactionsRef
-        .where("senderUID", "==", uid)
-        .orderBy("date", "desc")
-        .get()
-        .then((querySnapshot) => {
-          const transactions = [];
-          querySnapshot.forEach((doc) => {
-            transactions.push({ id: doc.id, ...doc.data() });;
-          });
-          recNam.innerHTML = 
-          transactionsList.innerHTML = "";
-          if (transactions.length === 0) {
-            transactionsList.innerHTML = "No transactions found.";
-          } else {
-            transactions.forEach((transaction) => {
-             
-              const listItem = document.createElement("li");
-              listItem.textContent = `Type: ${transaction.typ}, Amount:${transaction.sign} ₦${transaction.amount}, Date: ${transaction.date.toDate()}`;
-              transactionsList.appendChild(listItem);
-              listItem.style.cursor = "pointer"
-              listItem.addEventListener("click", () => {
-                alert(
-                  `Transaction Details:\nType: ${transaction.typ}\nAmount: ${transaction.sign} ₦${transaction.amount}\nDate: ${transaction.date.toDate()}`
-                );
-              });
-               
 
-            });
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching transactions:", error);
-        });
-        transactionsRef
-        .where("recieverUID", "==", uid)
-        .orderBy("date", "desc")
-        .get()
-        .then((querySnapshot) => {
-          const transactions = [];
-          querySnapshot.forEach((doc) => {
-            transactions.push({ id: doc.id, ...doc.data() });;
-          });
-          transactionsList.innerHTML = "";
-          if (transactions.length === 0) {
-            transactionsList.innerHTML = "No transactions found.";
-          } else {
-            transactions.forEach((transaction) => {
-             
-              const listItem = document.createElement("li");
-              listItem.textContent = `Type: ${transaction.type}, Amount: ${transaction.sin} ₦${transaction.amount}, Date: ${transaction.date.toDate()}`;
-              transactionsList.appendChild(listItem);
-              listItem.style.cursor = "pointer"
-              listItem.addEventListener("click", () => {
-                alert(
-                  `Transaction Details:\nType: ${transaction.type}\nAmount:  ${transaction.sin} ₦${transaction.amount}\nDate: ${transaction.date.toDate()}`
-                );
-              });
-
-            });
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching transactions:", error);
-        });
-    } else {
-      transactionsList.innerHTML = "Please log in to view transactions.";
-    }
-  }
-  
-  fetchDis();
-
-  
-    function myHistory(){
-        history.style.display ="block"
-
-    }
-    // history.addEventListener('click', viewHistory);
-    // function viewHistory(){
-    //     history.style.display = "none"
-    //     download.style.display = "block"
-    // }
+function myHistory() {
     
+history.style.display ="block"
+    const user = firebase.auth().currentUser;
+    const transactionsList = document.getElementById("transactionsList");
+    transactionsList.innerHTML = "";
+
+    if (user) {
+        const uid = user.uid;
+        const transactionsRef = db.collection("transactions");
+        transactionsRef
+            .where("senderUID", "==", uid)
+            .orderBy("date", "desc")
+            .get()
+            .then((senderSnapshot) => {
+                const senderTransactions = senderSnapshot.docs.map((doc) => {
+                    const data = doc.data();
+                    return { ...data, isSender: true };
+                });
+                transactionsRef
+                    .where("receiverUID", "==", uid)
+                    .orderBy("date", "desc")
+                    .get()
+                    .then((receiverSnapshot) => {
+                        const receiverTransactions = receiverSnapshot.docs.map((doc) => {
+                            const data = doc.data();
+                            return { ...data, isSender: false };
+                        });
+                        const transactions = [...senderTransactions, ...receiverTransactions];
+
+                        transactions.sort((a, b) => b.date - a.date);
+                        if (transactions.length === 0) {
+                            transactionsList.innerHTML = "No transactions found.";
+                        } else {
+                            transactions.forEach((transaction) => {
+                                const listItem = document.createElement("li");
+                                const sign = transaction.isSender ? "-" : "+";
+                                const owner = transaction.isSender ? `${transaction.receiverDetails}` : `${transaction.senderDetails}`;                           
+                                const type = transaction.isSender ? "Debited" : "Credited";
+                                listItem.innerHTML = `
+                                Type: ${type}  Amount: ${sign} ₦${transaction.amount}
+                                <br> 
+                                Date: ${transaction.date.toDate()}`;
+                                transactionsList.appendChild(listItem);
+                                listItem.style.cursor = "pointer";
+                                listItem.addEventListener("click", () => {
+                                    
+                                    const transactionDetails = `
+                                        Type: ${type} <br>
+                                        Name : ${owner}<br>
+                                        Amount: ${sign} ₦${transaction.amount}<br>
+                                        Date: ${transaction.date.toDate()}
+                                    `;
+                                    const transactionDetailsElement = document.getElementById("transactionDetails");
+                                    transactionDetailsElement.innerHTML = transactionDetails;
+                                    const modal = document.getElementById("transactionModal");
+                                    modal.style.display = "block";
+                                    const closeModal = document.querySelector(".close");
+                                    closeModal.addEventListener("click", () => {
+                                        modal.style.display = "none";
+                                    });
+                            });
+                        })
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching receiver transactions:", error);
+                    });
+            })
+            .catch((error) => {
+                console.error("Error fetching sender transactions:", error);
+            });
+    } else {
+        transactionsList.innerHTML = "Please log in to view transactions.";
+    }
+}
+
 
     function screeen(){
         finalPay()
-        window.print(download.innerHTML)
+      download.style.display = "block"
+        window.print()
     }
 
 let bot = document.querySelector('#bot');
@@ -491,6 +476,10 @@ function bck(){
     trans.style.display = "block"
 }
 
+let closee = document.getElementById("closee")
+closee.addEventListener("click", () => {
+    history.style.display = "none"
+})
    
 
     

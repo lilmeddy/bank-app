@@ -79,6 +79,7 @@ aside.active .top .logo img {
     list-style-type: none;
     height: 50px;
     width: 100%;
+   overflow:hidden;
     margin: 0.8rem auto;
     line-height: 80px;
 }
@@ -281,14 +282,16 @@ main{
 #airtime,
 #reciept,
 #download,
-#history{
+#history,
+#transactionModal{
     position:absolute;
     top:0;
-    left: 40%;
+    /* left: 45%; */
+    right:0;
     display: none;
     background-color: #fff;
     height: 100%;
-    width: 60%;
+    width: 350px;
     padding: 15px;
     transition: 3s all ease-in-out;
     box-shadow: 2px 4px 4px 4px rgba(0,0,0,0.5);
@@ -349,4 +352,57 @@ main{
     background-color: transparent;
     color: blue;
     border: none;
+}
+
+.transactions-list {
+    list-style: none;
+    padding: 0;
+}
+
+.transactions-list li {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    background-color: #f9f9f9;
+}
+
+.modal {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    padding: 15px;
+    transition: 3s all ease-in-out;
+    top: 0;
+    width: 350px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 350px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.close{
+    float: right;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+}
+.clos{
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold; 
+}
+.clos:hover{
+    color: red;
+}
+.close:hover {
+    color: red;
 }
