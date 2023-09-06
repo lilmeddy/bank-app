@@ -421,7 +421,9 @@ history.style.display ="block"
                                         Type: ${type} <br>
                                         Name : ${owner}<br>
                                         Amount: ${sign} ₦${transaction.amount}<br>
+                                        TransactionId :${transaction.transactio} <br>
                                         Date: ${transaction.date.toDate()}
+                                       
                                     `;
                                     const transactionDetailsElement = document.getElementById("transactionDetails");
                                     transactionDetailsElement.innerHTML = transactionDetails;
@@ -480,6 +482,16 @@ let closee = document.getElementById("closee")
 closee.addEventListener("click", () => {
     history.style.display = "none"
 })
+
+
+const display = (num) => {
+    document.getElementById("digits").value += num;
+  };
+  
+  const clr = () => {
+    document.getElementById("digits").value = "";
+  };
+  
    
 
     

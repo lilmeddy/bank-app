@@ -50,7 +50,7 @@
             </li>
 
             <li class="li">
-                <a href="save.html" class="sap ">
+                <a href="save.html" class="sap">
                     <i class='bx bx-target-lock'></i>
                     <span class="nav-item">Savings</span>
                 </a>
@@ -216,8 +216,30 @@
             </div>
             <div class="recipeient">
                 <div style="border-bottom: 1px solid blue; height: fit-content;"><input id="digits" type="number" placeholder="Enter 10 digits Account Number">
-                <button onclick="show()" ><i class='bx bx-check' style="color:blue"></i></button></div>
+             
                 <h1 id="showName"></h1>
+                <div class="passButton">
+                    <div class="butt-one">
+                      <button onclick="display(1)">1</button>
+                      <button onclick="display(2)">2</button>
+                      <button onclick="display(3)">3</button>
+                    </div>
+                    <div class="butt-one">
+                      <button onclick="display(4)">4</button>
+                      <button onclick="display(5)">5</button>
+                      <button onclick="display(6)">6</button>
+                    </div>
+                    <div class="butt-one">
+                      <button onclick="display(7)">7</button>
+                      <button onclick="display(8)">8</button>
+                      <button onclick="display(9)">9</button>
+                    </div>
+                    <div class="butt-one">
+                      <button onclick="clr()">X</button>
+                      <button onclick="display(0)">0</button>
+                      <button onclick="show()" ><i class='bx bx-check'></i></button></div>
+                    </div>
+                  </div>
                 <button onclick="pay()" id="">Next</button>
             </div>
         </section>
