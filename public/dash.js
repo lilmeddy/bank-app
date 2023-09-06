@@ -130,7 +130,9 @@ const db = firebase.firestore();
     function myTransfer(){
            transferr.style.display ="block"
     }
+    document.getElementById("payBut").style.display = "none"
     function show(){
+        
        showName.innerHTML=`
        <i class='bx bx-rotate-right bx-spin'></i>`
     
@@ -151,6 +153,7 @@ const db = firebase.firestore();
                 ${accountName} ${accountLast} `;
             tranNam.innerHTML = `${accountName} ${accountLast}`;
             tranNum.innerHTML =`${accountNum}`
+            document.getElementById("payBut").style.display = "block"
 
             } else {
                 showName.innerHTML = "Account not found.";
@@ -162,7 +165,7 @@ const db = firebase.firestore();
    
        
 function pay(){
-    if(!showName.innerHTML==""){
+    if(!showName.innerHTML==""  ){
         transferr.style.display ="none"
      payment.style.display ="block"
     }
@@ -407,6 +410,7 @@ history.style.display ="block"
                             transactions.forEach((transaction) => {
                                 const listItem = document.createElement("li");
                                 const sign = transaction.isSender ? "-" : "+";
+
                                 const owner = transaction.isSender ? `${transaction.receiverDetails}` : `${transaction.senderDetails}`;                           
                                 const type = transaction.isSender ? "Debited" : "Credited";
                                 listItem.innerHTML = `
@@ -420,7 +424,7 @@ history.style.display ="block"
                                     const transactionDetails = `
                                         Type: ${type} <br>
                                         Name : ${owner}<br>
-                                        Amount: ${sign} ₦${transaction.amount}<br>
+                                        Amount: ${sign} ₦${transaction.amount}<br></p>
                                         TransactionId :${transaction.transactio} <br>
                                         Date: ${transaction.date.toDate()}
                                        

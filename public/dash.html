@@ -207,18 +207,23 @@
         <button onclick="buyAirtime()">Buy Airtime</button>
       </div>
         <section id="transferr">
-            <div class="right">
-                <button onclick="back()"><i class='bx bx-chevron-left bx-flashing'></i></button>
-                <p>Transfer to PiggyVest Account</p>
+            <div class="payFlex">
+                <div class="right">
+                    <button onclick="back()" style="width: fit-content; padding: 10p;"><i class='bx bx-chevron-left bx-flashing'></i></button>
+                </div>
+                    <p>Transfer to PiggyVest Account</p>
+                
+                <!-- <div class="left">
+                    <button onclick="his()">History</button>
+                </div> -->
             </div>
-            <div class="left">
-                <button onclick="his()">History</button>
-            </div>
+          
+          
             <div class="recipeient">
                 <div style="border-bottom: 1px solid blue; height: fit-content;"><input id="digits" type="number" placeholder="Enter 10 digits Account Number">
              
-                <h1 id="showName"></h1>
-                <div class="passButton">
+                <p id="showName"></p>
+                <!-- <div class="passButton">
                     <div class="butt-one">
                       <button onclick="display(1)">1</button>
                       <button onclick="display(2)">2</button>
@@ -239,8 +244,8 @@
                       <button onclick="display(0)">0</button>
                       <button onclick="show()" ><i class='bx bx-check'></i></button></div>
                     </div>
-                  </div>
-                <button onclick="pay()" id="">Next</button>
+                  </div> -->
+                <button onclick="pay()" id="payBut">Next</button>
             </div>
         </section>
        
