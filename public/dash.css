@@ -282,7 +282,6 @@ main{
 #airtime,
 #reciept,
 #download,
-#history,
 #transactionModal{
     position:absolute;
     top:0;
@@ -299,9 +298,29 @@ main{
     width: 350px;
     padding: 15px;
     height: 100%;
+    height: fit-content;
     transition: 3s all ease-in-out;
     box-shadow: 2px 4px 4px 4px rgba(0,0,0,0.5);
     /* text-align: center; */
+}
+#history{
+    position:absolute;
+    top:0;
+    /* left: 45%; */
+    right:0;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    background-color: #fff;
+    padding: 30px 0;
+    width: 350px;
+    padding: 15px;
+    height: fit-content;
+    transition: 3s all ease-in-out;
+    box-shadow: 2px 4px 4px 4px rgba(0,0,0,0.5);
 }
 /* #transferr{
     position: relative;
