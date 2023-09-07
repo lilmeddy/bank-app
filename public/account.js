@@ -8,6 +8,7 @@ const firebaseConfig = {
 };
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const storage = firebase.storage();
 
 
 let screen = document.getElementById("screen")
@@ -51,7 +52,107 @@ window.location.href ="login.html"
 authAll()
 
 
+let profileImage = document.getElementById("profileImage")
+let fileRead = document.getElementById("fileRead")
+let fileInput = document.getElementById("fileInput")
 
+profileImage.addEventListener('click',() =>
+{
+     fileRead.style.display ="block"
+})
+fileInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        uploadImage(file);
+    }
+});
+function openFileInput (){
+    fileInput.click();
+}
+
+    function uploadImage(file) {
+
+        if (file) {
+            const userId = firebase.auth().currentUser.uid;
+            const filename = `${userId}_profile.jpg`;
+
+            const storageRef = storage.ref(`profile-images/${filename}`);
+            const uploadTask = storageRef.put(file);
+            uploadTask.on('state_changed',
+                null,
+                (error) => {
+                    console.error('Error uploading image:', error);
+                },
+                () => {
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        // const user = firebase.auth().currentUser;
+                        firebase.auth().onAuthStateChanged((user) => {
+                            if (user) {
+                           
+                        user.updateProfile({
+                            photoURL: downloadURL
+                        }).then(() => {
+                            // Update the profile image on the page
+                            profileImage.src = downloadURL;
+                        }).catch((error) => {
+                            console.error('Error updating profile image:', error);
+                        });
+                    }
+                    });
+                });
+                }
+            );
+        }
+    }
+
+  
+    function captureImage() {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    const video = document.createElement('video');
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+
+                    video.srcObject = stream;
+                    video.play();
+                    setTimeout(function() {
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        canvas.toBlob(function(blob) {
+                            const file = new File([blob], 'profile_image.jpg', { type: 'image/jpeg' });
+
+                            profileImage.src = URL.createObjectURL(blob);
+                            uploadImage(file);
+                        }, 'image/jpeg');
+                    }, 3000); 
+                })
+                .catch(function(error) {
+                    console.error('Error accessing camera:', error);
+                });
+        } else {
+            console.error('Camera not supported in this browser.');
+        }
+    
+    }
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+        var uid = user.uid;
+        // const userId = firebase.auth().currentUser.uid;
+    
+        const storageRef = firebase.storage().ref(`profile-images/${uid}_profile.jpg`);
+        
+        storageRef.getDownloadURL().then((downloadURL) => {
+            profileImage.src = downloadURL;
+        }).catch((error) => {
+            console.error('Error retrieving profile image from Firebase Storage:', error);
+        });
+        
+        }
+    });
+    
 
 let bot = document.querySelector('#bot');
 let aside = document.querySelector('.aside');

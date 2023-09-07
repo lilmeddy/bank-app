@@ -8,6 +8,7 @@ const firebaseConfig = {
 };
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const storage = firebase.storage();
 
  
 
@@ -497,5 +498,23 @@ const display = (num) => {
   };
   
    
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+    var uid = user.uid;
+    const photo = document.getElementById("photo")
+    // const userId = firebase.auth().currentUser.uid;
+
+    const storageRef = firebase.storage().ref(`profile-images/${uid}_profile.jpg`);
+    
+    storageRef.getDownloadURL().then((downloadURL) => {
+        photo.src = downloadURL;
+    }).catch((error) => {
+        console.error('Error retrieving profile image from Firebase Storage:', error);
+    });
+    
+    }
+});
+
 
     
