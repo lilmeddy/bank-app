@@ -297,7 +297,7 @@ main{
     padding: 30px 0;
     width: 350px;
     padding: 15px;
-    height: 100%;
+    /* height: 100%; */
     height: fit-content;
     transition: 3s all ease-in-out;
     box-shadow: 2px 4px 4px 4px rgba(0,0,0,0.5);
@@ -332,7 +332,7 @@ main{
     margin: auto;
     display: none;
     background-color: #fff;
-    height: 100%;
+    height: fit-content;
     width: 100%;
     /* border-radius: 2px; */
     padding: 15px;
@@ -358,24 +358,14 @@ main{
 .payFlex{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .payFlex h1{
  font-size: 25px;
 }
-#transferr input,
-#payment input,
-#trans input,
-#airtime input{
-    color: blue;
-    border-color: blue;
-    width: 100%;
-    border-radius: 5px;
-    /* border: none; */
-    border: 1px solid blue;
-    padding: 5px;
-    outline: none;
-}
-#transferr button,
+/* #transferr input, */
+
+/* #transferr button, */
 #payment button,
 #trans button{
     background-color: transparent;
@@ -435,26 +425,63 @@ main{
 .close:hover {
     color: red;
 }
+.recipeient{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
+#transferr input,
+#payment input,
+#trans input,
+#airtime input{
+    /* background-color: bisque; */
+    color: blue;
+    font-size: 20px;
+    border-color: blue;
+    width: 300px;
+    margin: 10px auto;
+    text-align: center;
+    /* border-radius: 5px; */
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    /* border: none; */
+    border: 1px solid blue;
+    padding: 5px;
+    outline: none;
+    
+}
 
 .passButton {
-    width: 98%;
-    margin: auto;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* margin: auto; */
     /* text-align:center; */
   }
-  
+  #transferr p{
+    color: rgba(0, 0, 255, 0.733);
+    font-size: 17px;
+    /* color: ; */
+  }
+  #transferr button,
   .passButton button {
     /* width: 2px; */
     cursor: pointer;
-    padding: 15px;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    margin-right: 15px;
-    margin-left: 5px;
-    border-radius: 10px;
-    background-color: bisque;
+    padding: 10px 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    background-color: rgba(0, 0, 255, 0.733);
     color: #fff;
-    font-size: 20px;
+    font-size: 15px;
     border: none;
     outline: none;
   }
@@ -469,3 +496,5 @@ main{
     border-radius: 50%;
     object-fit: cover;
 }
+
+

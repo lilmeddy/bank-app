@@ -242,6 +242,7 @@ function finalPay(){
                                     balance: newSenderBalance
                                 }).then(() => {
                                     download.innerHTML = `
+                                    <span class="close" id="closing">&times;</span>
                                     <div class="payFlex">
                                       <p>Money Recieved</p>
                                        <h1>Success</h1>
@@ -354,6 +355,7 @@ function finalPay(){
                               
                             }else{
                                 alert("invalid pin")
+                                return
                             }
                            
                 } else {
@@ -503,8 +505,6 @@ const display = (num) => {
     if (user) {
     var uid = user.uid;
     const photo = document.getElementById("photo")
-    // const userId = firebase.auth().currentUser.uid;
-
     const storageRef = firebase.storage().ref(`profile-images/${uid}_profile.jpg`);
     
     storageRef.getDownloadURL().then((downloadURL) => {
