@@ -207,11 +207,11 @@
                 <img src="https://storage.googleapis.com/piggybankservice.appspot.com/main-assets/banner2be2fabdd9.jpeg" alt="">
             </div>
         </section>
-      <div id="airtime">
+      <!-- <div id="airtime">
         <button onclick="bak()"><i class='bx bx-chevron-left bx-flashing'></i></button>
         <input type="number" id="airtimeAmount" placeholder="Amount">
         <button onclick="buyAirtime()">Buy Airtime</button>
-      </div>
+      </div> -->
         <section id="transferr">
             <div class="pay-flex">
                   <div class="payFlex" >
@@ -259,7 +259,7 @@
             <h1 id="payName"></h1>
             <!-- <p>PiggyVest(<span id="payAcc"></span>)</p> -->
             <label for="">Amount</label>
-            <div ><span style="  border-bottom: 1px solid blue;">₦</span><input style="text-align: left; margin: left -5px;" type="number" id="payAmt" placeholder="100.00-5,000,000.00"></div>
+            <div ><span>₦</span><input style="text-align: left; margin: left -5px;" type="number" id="payAmt" placeholder="100.00-5,000,000.00"></div>
             <label for="">Remark</label><br>
             <input type="text" placeholder="What's this for?(Optional)" id="rem"><br>
             <button onclick="showPin()">Confirm</button>
@@ -267,26 +267,26 @@
 
             <div id="trans">
 
-                <button onclick="bac()"><i class='bx bx-chevron-left bx-flashing'></i></button>
+                <button onclick="bac()">X</button>
                 <div class="payFlex">
                     <p>Bank</p>
-                    <h1>PiggyVest</h1>
+                    <h4 class="rectxt">PiggyVest</h4 class="rectxt">
                 </div>
                 <div class="payFlex">
                     <p>Account Number</p>
-                    <h1 id="tranNum"></h1>
+                    <h4 class="rectxt" id="tranNum"></h4 class="rectxt">
                 </div>
                 <div class="payFlex">
                     <p>Name</p>
-                    <h1 id="tranNam"></h1>
+                    <h4 class="rectxt" id="tranNam"></h4 class="rectxt">
                 </div>
                 <div class="payFlex">
                     <p>Amount</p>
-                    <h1 id="tranAmount"></h1>
+                    <h4 class="rectxt" id="tranAmount"></h4 class="rectxt">
                 </div>
                 <div class="payFlex">
                     <p>Remark</p>
-                    <h1 id="tranRem"></h1>
+                    <h4 class="rectxt" id="tranRem"></h4 class="rectxt">
                 </div>
                 <div>
                     <p>Payment method</p>
@@ -294,13 +294,13 @@
                 <div id="method"></div>
                 <div>
                     <label for="">Enter Pin</label>
-                    <input type="numbers" id="final" placeholder="Enter Pin">
+                    <input type="numbers" id="final" placeholder="1234" style="width: 70px;">
                 </div>
-                <button onclick="finalPay()">Pay</button>
+                <button onclick="finalPay()" style="margin-top: 10px; margin: auto;">Pay</button>
             </div>
             <div id="reciept">
                 <div class="rec-top">
-                    <button onclick="bck()"><i class='bx bx-chevron-left bx-flashing'></i></button> 
+                    <button onclick="bck()">X</button> 
                     <span>Transaction details</span>
                     </div> 
                     <div class="rec-flex">
@@ -323,62 +323,62 @@
                      </div>
                     </div>
                 </div>
-                    <h4 class="rectxt">
+                    <h4 class="rectxt" style="color: black;">
                     The recipient account is expected to be credited within 5 minutes,
                      subject to notification by the bank.
-                    </h4 class="rectxt">
+                    </h4>
                     <div class="payFlex">
                     <p><i class='bx bx-wallet-alt'></i> <span>Transfer to bank</span></p>
-                    <h4 class="rectxt"></h4 class="rectxt">
+                    <h4 class="rectxt"></h4>
                 </div>
                 <div class="payFlex">
                     <p>Order Amount</p>
-                     <h4 class="rectxt" id="recAmt"></h4 class="rectxt">
+                     <h4 class="rectxt" id="recAmt"></h>
         
                 </div>
                      <div class="payFlex">
                     <p>Fee
 
                     </p>
-                     <h4 class="rectxt">₦0.00</h4 class="rectxt">
+                     <h4 class="rectxt">₦0.00</h>
                      </div>
                      <div class ="rec-time"></div>
                      <div class="payFlex">
                      <p>Status</p>
-                      <h4 class="rectxt">Success</h4 class="rectxt">
+                      <h4 class="rectxt">Success</h>
                       </div>
                       <div class="payFlex">
                       <p>Bank Name</p>
-                       <h4 class="rectxt">Piggy Vest</h4 class="rectxt">
+                       <h4 class="rectxt">Piggy Vest</h>
                        </div>
                        <div class="payFlex">
                        <p>Account Number</p>
-                        <h4 class="rectxt" id="recNum"></h4 class="rectxt">
+                        <h4 class="rectxt" id="recNum"></h>
                         </div>
                         <div class="payFlex">
                         <p>Account Name</p>
-                         <h4 class="rectxt" id=recNam></h4 class="rectxt">
+                         <h4 class="rectxt" id=recNam></h>
                          </div>
                          <div class="payFlex">
                         <p>Paid with</p>
-                         <h4 class="rectxt" id="payMethod"></h4 class="rectxt">
+                         <h4 class="rectxt" id="payMethod"></h>
                          </div>
                          <div class="payFlex">
                          <p>SessionID</p>
-                          <h4 class="rectxt" id="recSess"></h4 class="rectxt">
+                          <h4 class="rectxt" id="recSess"></h>
                           </div>
                           <div class="payFlex">
                           <p>VAT</p>
-                           <h4 class="rectxt">₦0.00</h4 class="rectxt">
+                           <h4 class="rectxt">₦0.00</h>
                            </div>
                            <div class="payFlex">
                           <p>Remark</p>
-                           <h4 class="rectxt" id="recRem"></h4 class="rectxt">
+                           <h4 class="rectxt" id="recRem"></h>
                            </div>
                            <div class="payFlex">
                            <hr>
                            <p>Transaction Number</p>
-                            <h4 class="rectxt" id="recTra"></h4 class="rectxt">
+                            <h4 class="rectxt" id="recTra"></h>
                             </div>
                     </div>
                     <button onclick="screeen()">Download Reciept</button>
@@ -389,11 +389,11 @@
            
             
         </section>
-        <div class="overlay">
-            <div id="download" class="modal"  >
+        <section class="overlay">
+            <div id="download" class="modal">
                 
             </div>
-        </div>
+        </section>
         
         <section id="history">
                 <h2 >   <span class="clos" id="closee">&times;</span>&nbsp; Transaction History</h2>
@@ -408,12 +408,43 @@
                 </div>
             
         </section>
+
+        <!-- Add this inside your existing HTML -->
+<div id="buyAirtime">
+      <div style="display: flex;">
+        <button onclick="bak()" style="padding: 10px 15px; ">X</button> <h2 >Buy Airtime</h2> 
+      </div>
+   
+    <div><label for="network">Select Network:</label>
+    <select id="network">
+        <option value="mtn">MTN</option>
+        <option value="airtel">Airtel</option>
+        <option value="glo">Glo</option>
+        <option value="9mobile">9mobile</option>
+    </select>
+</div>
+    <div>
+       
+        <button onclick="setAirtimeAmount(50)" style="padding: 10px 20px;">₦50</button>
+        <button onclick="setAirtimeAmount(100)" style="padding: 10px 15px;">₦100</button>
+        <button onclick="setAirtimeAmount(200)" style="padding: 10px 15px;">₦200</button>
+        <button onclick="setAirtimeAmount(500)" style="padding: 10px 15px;">₦500</button>
+        <button onclick="setAirtimeAmount(1000)">₦1000</button>
+        <button onclick="setAirtimeAmount(2000)">₦2000</button>
+        <button onclick="setAirtimeAmount(5000)">₦5000</button>
+        <button onclick="setAirtimeAmount(10000)">₦10000</button>
+    </div>
+    <input type="tel" id="recipientNumber" placeholder="Recipient Phone Number">
+    <input type="number" id="airtimeAmount" placeholder="Amount">
+    <button onclick="buyAirtime()">Buy Airtime</button>
+</div>
+</div>
+
     </main>
 
 </body>
 
 </html>
-
 
 <script src="dash.js"></script>
 

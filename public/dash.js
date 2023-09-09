@@ -84,47 +84,83 @@ const storage = firebase.storage();
 }).catch((error) => {
 });
          }
+      
          function myAirtime(){
-   airtime.style.display="block"
+            let buyAirtime = document.getElementById("buyAirtime")
+         buyAirtime.style.display="block"
     }
-    function buyAirtime(){
+    function setAirtimeAmount(amount) {
         const amountInput = document.getElementById("airtimeAmount");
-    const amount = amountInput.value;
-        firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    var uid = user.uid;
-    console.log(uid);
-    var docRef = db.collection("account").doc(`${uid}`);
-    docRef.get().then((doc) => {
-        if (doc.exists) {
-            const userData = doc.data();
-            console.log(userData);
-            const currentBalance = userData.balance;
-            console.log(currentBalance);
-            if (currentBalance >= amount) {
-                const newBalance = currentBalance - amount;
-                console.log(newBalance);
-                console.log(amount);
-                db.collection("account").doc(uid).update({
-                    balance: newBalance
-                }).then(() => {
-                    raydee.textContent = ` ₦${newBalance.toFixed(2)}`;
+        amountInput.value = amount;
+      }
+      
 
-                }).catch(error => {
-                    console.error("Error updating balance:", error);
-                });
-            }else{
-                alert("insufficient balance")
-            }
-        }
-        })
+
+function buyAirtime() {
+    const amountInput = document.getElementById("airtimeAmount");
+    const amount = amountInput.value;
+
+    const networkSelect = document.getElementById("network");
+    const network = networkSelect.options[networkSelect.selectedIndex].value;
+
+    const recipientNumberInput = document.getElementById("recipientNumber");
+    const recipientNumber = recipientNumberInput.value;
+    
+    
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            var uid = user.uid;
+            var docRef = db.collection("account").doc(`${uid}`);
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    const currentBalance = userData.balance;
+
+                    if (currentBalance >= amount) {
+                        const newBalance = currentBalance - amount;
+
+                        
+                        db.collection("account").doc(uid).update({
+                            balance: newBalance
+                        }).then(() => {
+                            raydee.textContent = ` ₦${newBalance.toFixed(2)}`;
+
+                            
+                            const transactionsRef = db.collection("transactions").doc();
+                            const date = new Date();
+
+                            transactionsRef.set({
+                                senderUID: uid,
+                                receiverUID: null,  
+                                senderDetails: null,
+                                receiverDetails: null, 
+                                transac: null,  
+                                amount: amount,
+                                transactio: null,  
+                                transactionType: "Airtime Purchase",
+                                date: date,
+                                
+                            }).then(() => {
+                                alert("Airtime purchase transaction successful ");
+                            }).catch((error) => {
+                                console.error("Error adding airtime purchase transaction: ", error);
+                            });
+                        }).catch(error => {
+                            console.error("Error updating balance:", error);
+                        });
+                    } else {
+                        alert("Insufficient balance");
+                    }
+                }
+            });
         } else {
             console.log("No such document!");
         }
     }).catch((error) => {
         console.log("Error getting document:", error);
     });
-    }
+}
 
 
 
@@ -235,14 +271,15 @@ function finalPay(){
                                    
                                 
                                 const newSenderBalance = senderBalance - amount;
-                                
+                               
+
 
                                   console.log(newSenderBalance);
                                   db.collection("account").doc(uid).update({
                                     balance: newSenderBalance
                                 }).then(() => {
                                     download.innerHTML = `
-                                    <span class="close" id="closing">&times;</span>
+                                    <div class="close" id="closing" style="margin-top:-8px;">&times;</div>
                                     <div class="payFlex">
                                       <p>Money Recieved</p>
                                        <h1>Success</h1>
@@ -269,6 +306,11 @@ function finalPay(){
                                            <h1>${transactio}</h1>
                                            </div>
                                     `
+                                    let closing = document.getElementById("closing")
+                                    closing.addEventListener("click", () => {
+                                        overlay.style.display = "none"
+                                        download.style.display = "none"
+                                    })
                                     raydee.textContent = ` ₦${newSenderBalance.toFixed(2)}`;
 
                                    
@@ -376,9 +418,9 @@ function finalPay(){
     }  
 
 
+
 function myHistory() {
-    
-history.style.display ="block"
+    history.style.display="block"
     const user = firebase.auth().currentUser;
     const transactionsList = document.getElementById("transactionsList");
     transactionsList.innerHTML = "";
@@ -386,6 +428,7 @@ history.style.display ="block"
     if (user) {
         const uid = user.uid;
         const transactionsRef = db.collection("transactions");
+
         transactionsRef
             .where("senderUID", "==", uid)
             .orderBy("date", "desc")
@@ -395,6 +438,7 @@ history.style.display ="block"
                     const data = doc.data();
                     return { ...data, isSender: true };
                 });
+
                 transactionsRef
                     .where("receiverUID", "==", uid)
                     .orderBy("date", "desc")
@@ -404,44 +448,58 @@ history.style.display ="block"
                             const data = doc.data();
                             return { ...data, isSender: false };
                         });
+
                         const transactions = [...senderTransactions, ...receiverTransactions];
 
                         transactions.sort((a, b) => b.date - a.date);
+
                         if (transactions.length === 0) {
                             transactionsList.innerHTML = "No transactions found.";
                         } else {
                             transactions.forEach((transaction) => {
                                 const listItem = document.createElement("li");
                                 const sign = transaction.isSender ? "-" : "+";
-
-                                const owner = transaction.isSender ? `${transaction.receiverDetails}` : `${transaction.senderDetails}`;                           
+                                let transactionDetails = "";
+                                const owner = transaction.isSender ? transaction.receiverDetails : transaction.senderDetails;
                                 const type = transaction.isSender ? "Debited" : "Credited";
-                                listItem.innerHTML = `
-                                Type: ${type}  Amount: ${sign} ₦${transaction.amount}
-                                <br> 
-                                Date: ${transaction.date.toDate()}`;
+                                const dateOptions = { weekday: 'short', hour: 'numeric', minute: 'numeric' };
+                                const formattedDate = transaction.date.toDate().toLocaleDateString('en-US', dateOptions);
+
+                                if (transaction.transactionType === "Airtime Purchase") {
+                                    transactionDetails = `
+                                        Type: Airtime Purchase<br>
+                                        Amount: ₦${sign} ${transaction.amount}<br>
+                                        
+                                          Date: ${formattedDate}<br>
+                                    `;
+                                } else {
+                                    
+                                    transactionDetails = `
+                                        Type: ${type} 
+                                        Name : ${owner}
+                                        Amount: ₦${sign} ${transaction.amount}<br>
+                                        TransactionId :${transaction.transactio} <br>
+                                        Date: ${formattedDate}
+                                    `;
+                                }
+
+                                listItem.innerHTML = transactionDetails;
                                 transactionsList.appendChild(listItem);
+
                                 listItem.style.cursor = "pointer";
                                 listItem.addEventListener("click", () => {
-                                    
-                                    const transactionDetails = `
-                                        Type: ${type} <br>
-                                        Name : ${owner}<br>
-                                        Amount: ${sign} ₦${transaction.amount}<br></p>
-                                        TransactionId :${transaction.transactio} <br>
-                                        Date: ${transaction.date.toDate()}
-                                       
-                                    `;
                                     const transactionDetailsElement = document.getElementById("transactionDetails");
                                     transactionDetailsElement.innerHTML = transactionDetails;
+
                                     const modal = document.getElementById("transactionModal");
                                     modal.style.display = "block";
+
                                     const closeModal = document.querySelector(".close");
                                     closeModal.addEventListener("click", () => {
                                         modal.style.display = "none";
                                     });
+                                });
                             });
-                        })
                         }
                     })
                     .catch((error) => {
@@ -457,9 +515,11 @@ history.style.display ="block"
 }
 
 
+
+const overlay = document.querySelector('.overlay');
     function screeen(){
         finalPay()
-        
+      overlay.style.display = "block"
       download.style.display = "block"
         window.print()
     }
@@ -472,7 +532,8 @@ let bot = document.querySelector('#bot');
 
     };
     function bak(){
-        airtime.style.display = "none"
+        let buyAirtime = document.getElementById("buyAirtime")
+        buyAirtime.style.display = "none"
     }
     function bac(){
         trans.style.display = "none"
