@@ -459,6 +459,7 @@ history.style.display ="block"
 
     function screeen(){
         finalPay()
+        
       download.style.display = "block"
         window.print()
     }

@@ -107,11 +107,10 @@
                 </div>
                 <div class="col-lg-11 text-end">
                     <button onclick="myHistory()" style="background-color: transparent;border: none;"><p  class="btn nam" >Transaction History</p></button>
-                    <p   class="btn nam" id="fund">Fund</p>
                     <button onclick="myTransfer()" style="background-color: transparent;border: none;"><p  class="btn nam" >Transfer</p></button>
                     <button onclick="myAirtime()" style="background-color: transparent;border: none;"><p  class="btn nam" >Buy Airtime</p></button>
                     <!-- <p   class="btn nam" id="airtime"></p> -->
-                    <p   class="btn nam" id="save">+ QUICK SAVE</p>
+                  
                 </div>
             </div>
         </section>
@@ -260,7 +259,7 @@
             <h1 id="payName"></h1>
             <!-- <p>PiggyVest(<span id="payAcc"></span>)</p> -->
             <label for="">Amount</label>
-            <div><span>₦</span><input type="number" id="payAmt" placeholder="100.00-5,000,000.00"></div>
+            <div ><span style="  border-bottom: 1px solid blue;">₦</span><input style="text-align: left; margin: left -5px;" type="number" id="payAmt" placeholder="100.00-5,000,000.00"></div>
             <label for="">Remark</label><br>
             <input type="text" placeholder="What's this for?(Optional)" id="rem"><br>
             <button onclick="showPin()">Confirm</button>
@@ -324,65 +323,65 @@
                      </div>
                     </div>
                 </div>
-                    <h1>
+                    <h4 class="rectxt">
                     The recipient account is expected to be credited within 5 minutes,
                      subject to notification by the bank.
-                    </h1>
+                    </h4 class="rectxt">
                     <div class="payFlex">
                     <p><i class='bx bx-wallet-alt'></i> <span>Transfer to bank</span></p>
-                    <h1></h1>
+                    <h4 class="rectxt"></h4 class="rectxt">
                 </div>
                 <div class="payFlex">
                     <p>Order Amount</p>
-                     <h1 id="recAmt"></h1>
+                     <h4 class="rectxt" id="recAmt"></h4 class="rectxt">
         
                 </div>
                      <div class="payFlex">
                     <p>Fee
 
                     </p>
-                     <h1>₦0.00</h1>
+                     <h4 class="rectxt">₦0.00</h4 class="rectxt">
                      </div>
                      <div class ="rec-time"></div>
                      <div class="payFlex">
                      <p>Status</p>
-                      <h1>Success</h1>
+                      <h4 class="rectxt">Success</h4 class="rectxt">
                       </div>
                       <div class="payFlex">
                       <p>Bank Name</p>
-                       <h1>Piggy Vest</h1>
+                       <h4 class="rectxt">Piggy Vest</h4 class="rectxt">
                        </div>
                        <div class="payFlex">
                        <p>Account Number</p>
-                        <h1 id="recNum"></h1>
+                        <h4 class="rectxt" id="recNum"></h4 class="rectxt">
                         </div>
                         <div class="payFlex">
                         <p>Account Name</p>
-                         <h1 id=recNam></h1>
+                         <h4 class="rectxt" id=recNam></h4 class="rectxt">
                          </div>
                          <div class="payFlex">
                         <p>Paid with</p>
-                         <h1 id="payMethod"></h1>
+                         <h4 class="rectxt" id="payMethod"></h4 class="rectxt">
                          </div>
                          <div class="payFlex">
                          <p>SessionID</p>
-                          <h1 id="recSess"></h1>
+                          <h4 class="rectxt" id="recSess"></h4 class="rectxt">
                           </div>
                           <div class="payFlex">
                           <p>VAT</p>
-                           <h1>₦0.00</h1>
+                           <h4 class="rectxt">₦0.00</h4 class="rectxt">
                            </div>
                            <div class="payFlex">
                           <p>Remark</p>
-                           <h1 id="recRem"></h1>
+                           <h4 class="rectxt" id="recRem"></h4 class="rectxt">
                            </div>
                            <div class="payFlex">
                            <hr>
                            <p>Transaction Number</p>
-                            <h1 id="recTra"></h1>
+                            <h4 class="rectxt" id="recTra"></h4 class="rectxt">
                             </div>
                     </div>
-                    <button onclick="screeen()">history Reciept</button>
+                    <button onclick="screeen()">Download Reciept</button>
                     </div>
                      
                 
@@ -390,9 +389,12 @@
            
             
         </section>
-         <div id="download" class="modal"  >
+        <div class="overlay">
+            <div id="download" class="modal"  >
                 
             </div>
+        </div>
+        
         <section id="history">
                 <h2 >   <span class="clos" id="closee">&times;</span>&nbsp; Transaction History</h2>
                 <ul id="transactionsList" class="transactions-list"></ul>
