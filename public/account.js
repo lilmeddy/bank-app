@@ -33,14 +33,14 @@ docRef.get().then((doc) => {
             
             name.textContent = ` ${doc.data().displayName}  ${doc.data().last}`
             acc.textContent = ` ${doc.data().account}`
-           console.log("Document data:", doc.data());
+        
 
 
     } else {
-        console.log("No such document!");
+        alert("No such document!");
     }
 }).catch((error) => {
-    console.log("Error getting document:", error);
+    alert("Error getting document:", error);
 });
 
 } else {
@@ -81,7 +81,7 @@ function openFileInput (){
             uploadTask.on('state_changed',
                 null,
                 (error) => {
-                    console.error('Error uploading image:', error);
+                    alert('Error uploading image:', error);
                 },
                 () => {
                     uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
@@ -95,7 +95,7 @@ function openFileInput (){
                             // Update the profile image on the page
                             profileImage.src = downloadURL;
                         }).catch((error) => {
-                            console.error('Error updating profile image:', error);
+                            alert('Error updating profile image:', error);
                         });
                     }
                     });
@@ -129,10 +129,10 @@ function openFileInput (){
                     }, 3000); 
                 })
                 .catch(function(error) {
-                    console.error('Error accessing camera:', error);
+                    alert('Error accessing camera:', error);
                 });
         } else {
-            console.error('Camera not supported in this browser.');
+            alert('Camera not supported in this browser.');
         }
     
     }
@@ -147,7 +147,7 @@ function openFileInput (){
         storageRef.getDownloadURL().then((downloadURL) => {
             profileImage.src = downloadURL;
         }).catch((error) => {
-            console.error('Error retrieving profile image from Firebase Storage:', error);
+            alert('Error retrieving profile image from Firebase Storage:', error);
         });
         
         }

@@ -170,13 +170,12 @@
         .get()
         .then((querySnapshot) => { 
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data());
             showName.innerHTML =
              `${doc.data().name} ${doc.data().last}`
             });
         })
         .catch((error) => {
-            console.log("Error getting documents: ", error);
+            alert("Error getting documents: ", error);
         });
     }
 

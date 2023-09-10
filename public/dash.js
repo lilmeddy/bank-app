@@ -13,8 +13,7 @@ const storage = firebase.storage();
  
 
    const user = firebase.auth().currentUser;
-   console.log(user);
-//    let logs = document.getElementById("log")
+ 
     let lastName = document.getElementById("lastName")
     let firstName = document.getElementById("firstName")
     let raydee = document.getElementById("raydee")
@@ -58,14 +57,13 @@ const storage = firebase.storage();
                 lastName.textContent = ` ${doc.data().last}`
                 firstName.textContent = ` ${doc.data().displayName} pocket`
                 raydee.textContent = `₦${doc.data().balance}`
-               console.log("Document data:", doc.data());
-  
+              
 
         } else {
-            console.log("No such document!");
+           alert("No such document!");
         }
     }).catch((error) => {
-        console.log("Error getting document:", error);
+       alert("Error getting document:", error);
     });
 
   } else {
@@ -82,6 +80,7 @@ const storage = firebase.storage();
   alert ("Sign-out successful.")
   window.location.href ="index.html"
 }).catch((error) => {
+    alert(error)
 });
          }
       
@@ -144,10 +143,10 @@ function buyAirtime() {
                             }).then(() => {
                                 alert("Airtime purchase transaction successful ");
                             }).catch((error) => {
-                                console.error("Error adding airtime purchase transaction: ", error);
+                               alert("Error adding airtime purchase transaction: ", error);
                             });
                         }).catch(error => {
-                            console.error("Error updating balance:", error);
+                           alert("Error updating balance:", error);
                         });
                     } else {
                         alert("Insufficient balance");
@@ -155,10 +154,10 @@ function buyAirtime() {
                 }
             });
         } else {
-            console.log("No such document!");
+            alert("No such document!");
         }
     }).catch((error) => {
-        console.log("Error getting document:", error);
+        alert("Error getting document:", error);
     });
 }
 
@@ -184,7 +183,6 @@ function buyAirtime() {
                 const accountName = accountData.displayName; 
                 const accountLast = accountData.last;
                 const accountNum = accountData.account;
-                console.log(accountData); 
                 showName.innerHTML = `
                 <i class='bx bxs-user-check'></i>
                 ${accountName} ${accountLast} `;
@@ -246,8 +244,6 @@ function finalPay(){
                     const accountLast = accountData.last;
                     const accountNum = accountData.account;
                     // const accountID = accountData.id
-                  
-                    console.log(accountData); 
                     showName.innerHTML = `
                     <i class='bx bxs-user-check'></i>
                     ${accountName} ${accountLast} `;
@@ -258,8 +254,6 @@ function finalPay(){
 
               const senderBalance = senderData.balance
              const senderPin = senderData.pin
-              console.log(senderBalance);
-                console.log(senderBalance);
                 if (!senderData || !accountData) {
                                     alert("Sender or receiver not found.");
                                 }
@@ -271,10 +265,7 @@ function finalPay(){
                                    
                                 
                                 const newSenderBalance = senderBalance - amount;
-                               
-
-
-                                  console.log(newSenderBalance);
+                        
                                   db.collection("account").doc(uid).update({
                                     balance: newSenderBalance
                                 }).then(() => {
@@ -316,7 +307,7 @@ function finalPay(){
                                    
                 
                                 }).catch(error => {
-                                    console.error("Error updating balance:", error);
+                                   alert("Error updating balance:", error);
                                 });
                                 const accountNumber = parseInt(tranNum.innerText);
                                 const receiverRef =  db.collection("account")
@@ -374,25 +365,25 @@ function finalPay(){
                                           date: date,
                                         })
                                         .then(() => {
-                                          console.log("Transaction added with ID: ", uid);
+                                          alert("Transaction updated");
                                         })
                                         .catch((error) => {
-                                          console.error("Error adding transaction: ", error);
+                                         alert("Error adding transaction: ", error);
                                         })
                                     
                                         .catch((error) => {
-                                          console.error("Error updating receiver's balance:", error);
+                                         alert("Error updating receiver's balance:", error);
                                         });
                                       })
                                       .catch((error) => {
-                                        console.error("Error retrieving receiver's data:", error);
+                                       alert("Error retrieving receiver's data:", error);
                                       });
                                   } else {
                                     alert("receiver account not found.");
                                   }
                                 })
                                 .catch((error) => {
-                                  console.error("Error querying receiver's account:", error);
+                                 alert("Error querying receiver's account:", error);
                                 });
                               
                             }else{
@@ -405,10 +396,10 @@ function finalPay(){
                 }
             })
         } else {
-            console.log("No such document!");
+            alert("No such document!");
         }
     }).catch((error) => {
-        console.log("Error getting document:", error);
+        alert("Error getting document:", error);
     });
 
   } else {
@@ -468,7 +459,7 @@ function myHistory() {
                                 if (transaction.transactionType === "Airtime Purchase") {
                                     transactionDetails = `
                                         Type: Airtime Purchase<br>
-                                        Amount: ₦${sign} ${transaction.amount}<br>
+                                        Amount: ${sign}₦${transaction.amount}<br>
                                         
                                           Date: ${formattedDate}<br>
                                     `;
@@ -477,7 +468,7 @@ function myHistory() {
                                     transactionDetails = `
                                         Type: ${type} 
                                         Name : ${owner}
-                                        Amount: ₦${sign} ${transaction.amount}<br>
+                                        Amount: ${sign} ₦${transaction.amount}<br>
                                         TransactionId :${transaction.transactio} <br>
                                         Date: ${formattedDate}
                                     `;
@@ -503,11 +494,11 @@ function myHistory() {
                         }
                     })
                     .catch((error) => {
-                        console.error("Error fetching receiver transactions:", error);
+                       alert("Error fetching receiver transactions:", error);
                     });
             })
             .catch((error) => {
-                console.error("Error fetching sender transactions:", error);
+               alert("Error fetching sender transactions:", error);
             });
     } else {
         transactionsList.innerHTML = "Please log in to view transactions.";
@@ -572,7 +563,7 @@ const display = (num) => {
     storageRef.getDownloadURL().then((downloadURL) => {
         photo.src = downloadURL;
     }).catch((error) => {
-        console.error('Error retrieving profile image from Firebase Storage:', error);
+       alert('Error retrieving profile image from Firebase Storage:', error);
     });
     
     }

@@ -27,7 +27,7 @@
     none.style.display ="none"
     var user = userCredential.user;
     let currentUser = firebase.auth().currentUser
-    console.log(user);
+  
     window.location.href ="dash.html"
     // ...
   })

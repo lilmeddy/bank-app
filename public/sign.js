@@ -37,15 +37,13 @@
                 
                 var user = userCredential.user;
                 var userId = user.uid;
-                one.style.display = "none"
-                second.style.display ="block"
+                
                 alert("successful")
                 user.updateProfile({
                 displayName: first.value,
 }).then(() => {
-
-  alert("done")
-  console.log(user);
+    one.style.display = "none"
+    second.style.display ="block"
   // ...
 })
             })
@@ -84,10 +82,10 @@
                     window.location.href = "login.html";
                 })
                 .catch((error) => {
-                    console.error("Error updating user profile: ", error);
+                    alert("Error updating user profile: ", error);
                 })
             .catch((error) => {
-                console.error("Error writing document: ", error);
+                alert("Error writing document: ", error);
             });
     }
 }
