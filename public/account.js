@@ -161,3 +161,12 @@ bot.onclick = function () {
     aside.classList.toggle('active');
 
 };
+
+function log(){
+    firebase.auth().signOut().then(() => {
+alert ("Sign-out successful.")
+window.location.href ="index.html"
+}).catch((error) => {
+alert(error)
+});
+ }

@@ -100,7 +100,7 @@ function buyAirtime() {
     const amount = amountInput.value;
 
     const networkSelect = document.getElementById("network");
-    const network = networkSelect.options[networkSelect.selectedIndex].value;
+    const network = networkSelect.value;
 
     const recipientNumberInput = document.getElementById("recipientNumber");
     const recipientNumber = recipientNumberInput.value;
@@ -118,7 +118,8 @@ function buyAirtime() {
 
                     if (currentBalance >= amount) {
                         const newBalance = currentBalance - amount;
-
+                     
+                        if(recipientNumber.length = 11){
                         
                         db.collection("account").doc(uid).update({
                             balance: newBalance
@@ -139,15 +140,23 @@ function buyAirtime() {
                                 transactio: null,  
                                 transactionType: "Airtime Purchase",
                                 date: date,
+                                recipientNumber:recipientNumber,
+                                network:network,
                                 
                             }).then(() => {
                                 alert("Airtime purchase transaction successful ");
+                               console.log(recipientNumber);
+                                let buyAirtime = document.getElementById("buyAirtime")
+                                buyAirtime.style.display="none"
                             }).catch((error) => {
                                alert("Error adding airtime purchase transaction: ", error);
                             });
                         }).catch(error => {
                            alert("Error updating balance:", error);
                         });
+                    }else{
+                        alert("Number must be up to 11 digits")
+                    }
                     } else {
                         alert("Insufficient balance");
                     }
@@ -460,7 +469,8 @@ function myHistory() {
                                     transactionDetails = `
                                         Type: Airtime Purchase<br>
                                         Amount: ${sign}₦${transaction.amount}<br>
-                                        
+                                        Number : ${transaction.recipientNumber} <br>
+                                        Network:${transaction.network} <br>
                                           Date: ${formattedDate}<br>
                                     `;
                                 } else {

@@ -34,52 +34,56 @@
         <i class='bx bx-rotate-right bx-spin bx-rotate-90' style="color: blue;"></i>
     </div>
     <aside class="aside" id="load">
-
-        <div class="top" style="padding-top: 15px;">
-            <i class="bx bx-menu" id="bot" style="padding-top: 15px;"></i>
-            <div class="logo">
-                <img src="https://dashboard.piggyvest.com/static/media/piggyvest-logo.0b78a8fa.svg" alt="">
-            </div>
-
+        <div class="top" style="padding-top: 15px">
+          <i class="bx bx-menu" id="bot" style="padding-top: 15px"></i>
+          <div class="logo">
+            <img
+              src="https://dashboard.piggyvest.com/static/media/piggyvest-logo.0b78a8fa.svg"
+              alt=""
+            />
+          </div>
         </div>
         <ul class="ul">
-            <li class="li">
-                <a href="" class="sap">
-                    <i class='bx bxs-home'></i>
-                    <span class="nav-item">Home</span>
-                </a>
-            </li>
-
-            <li class="li">
-                <a href="save.html" class="sap">
-                    <i class='bx bx-target-lock'></i>
-                    <span class="nav-item">Savings</span>
-                </a>
-            </li>
-
-            <li class="li">
-                <a href="" class="sap">
-                    <i class='bx bxs-rocket'></i>
-                    <span class="nav-item">Invest</span>
-                </a>
-            </li>
-
-            <li class="li">
-                <a href="account.html" class="sap">
-                    <i class='bx bx-user'></i>
-                    <span class="nav-item">Account</span>
-                </a>
-            </li>
-
-            <li class="li move">
-                <button onclick="log()" class=" sap" style="background-color: transparent;border: none;">
-                    <i class='bx bx-power-off'></i>
-                    <span class="nav-item">Logout</span>
-                </button>
-            </li>
+          <li class="li">
+            <a href="dash.html" class="sap">
+              <i class="bx bxs-home"></i>
+              <span class="nav-item">Home</span>
+            </a>
+          </li>
+  
+          <li class="li">
+            <a href="" class="sap">
+              <i class="bx bx-target-lock"></i>
+              <span class="nav-item">Savings</span>
+            </a>
+          </li>
+  
+          <li class="li">
+            <a href="" class="sap">
+              <i class="bx bxs-rocket"></i>
+              <span class="nav-item">Invest</span>
+            </a>
+          </li>
+  
+          <li class="li">
+            <a href="account.html" class="sap">
+              <i class="bx bx-user"></i>
+              <span class="nav-item">Account</span>
+            </a>
+          </li>
+  
+          <li class="li move">
+            <button
+              onclick="log()"
+              class="sap "
+              style="background-color: red; border: none"
+            >
+              <i class="bx bx-power-off"></i>
+              <span class="nav-item">Logout</span>
+            </button>
+          </li>
         </ul>
-
-    </aside>
+      </aside>
     <main class="main" id="screen">
         <section class="section1">
             <div class="d-flex align-items-center justify-content-between mt-3">
@@ -434,7 +438,7 @@
         <button onclick="setAirtimeAmount(5000)">₦5000</button>
         <button onclick="setAirtimeAmount(10000)">₦10000</button>
     </div>
-    <input type="tel" id="recipientNumber" placeholder="Recipient Phone Number">
+    <input type="number" id="recipientNumber" placeholder="Recipient Phone Number">
     <input type="number" id="airtimeAmount" placeholder="Amount">
     <button onclick="buyAirtime()">Buy Airtime</button>
 </div>
