@@ -607,8 +607,33 @@ main{
     }
     .todo{
         display: block;
+        width:100%;
     }
     .to{
+
         width: 100%;
     }
+    .too{
+
+        width: 100%;
+    
+    }
+    .too h5{
+        font-size: 15px;
+    }
+    .too p{
+        display: none;
+    }
+    .best{
+        width: 100%;
+        display: block;
+text-align: center;
+    }
+    .nav-item{
+        display: none;
+    }
+    #bot{
+        display: none;
+    }
+    
 }
