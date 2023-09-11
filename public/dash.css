@@ -602,5 +602,13 @@ main{
 
 
 @media (max-width:800px) {
-    
+    .list-flex{
+        display: block;
+    }
+    .todo{
+        display: block;
+    }
+    .to{
+        width: 100%;
+    }
 }

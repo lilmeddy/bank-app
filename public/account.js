@@ -170,3 +170,8 @@ window.location.href ="index.html"
 alert(error)
 });
  }
+
+ let  accUpdate = document.getElementById("accUpdate")
+ accUpdate.addEventListener('click', () =>{
+    window.location.href ="details.html"
+ })

@@ -12,12 +12,29 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
-    <section  >
-        <main class="content" id="screen">
-
+    <section>
+        <main class="content" id="block">
+            <h1>Reset your password</h1>
+            <p>Securely login to your PiggyVest</p>
+            <form id="reset-password-form">
+                <div class="form-txt">
+                    <label for="Email">New Password</label> <br>
+                    <input type="password" id="new-password" required>
+                </div>
+    
+                <div class="form-txt">
+                    <label for="password">Confirm Password</label> <br>
+                    <input type="password" id="confirm-password" required>
+                </div>
+                     <br>
+                     <br>
+            <button type="submit">Reset Password</button>
+           
+            </form>
+      
         </main>
-        <div id="scrn" style=" font-size: 150px; width: 20%; height: 50%; margin: 200px auto;">
-            <i class='bx bx-rotate-right bx-spin bx-rotate-90' style="color: #fff;"></i>
+        <div class="a-tag">
+            <a href="login.html">Be logged in first to change password</a> <br><br>
         </div>
     </section>
 </body>
@@ -38,43 +55,35 @@
 </script>
 
  <script>
-    let screen = document.getElementById("screen")
-    let scrn = document.getElementById("scrn")
-    scrn.style.display= "block"
-    screen.style.display="none"
-    
-            function authAll(){
-        firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    var uid = user.uid;
-    var docRef = db.collection("account").doc(`${uid}`);
-    docRef.get().then((doc) => {
-        if (doc.exists) {
-               scrn.style.display = "none"
-                screen.style.display = "block"
-                // load.style.display = "block"
-                screen.innerHTML =`
-                 <div>
-                    <h4>Email Address ${doc.data().mail}</h4>
-                    <h4>Name ${doc.data().displayName} ${doc.data().last}</h4>
-                    <h4>Account Number ${doc.data().account}</h4>
-                    <h4>Phone Number ${doc.data().number}</h4>
-                    <div>
-            `
-        } else {
-            alert("No such document!");
-        }
-    }).catch((error) => {
-        alert("Error getting document:", error);
-    });
+   const resetPasswordForm = document.getElementById('reset-password-form');
 
-  } else {
-    window.location.href ="login.html"
+resetPasswordForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const newPassword = document.getElementById('new-password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+  
+  if (newPassword !== confirmPassword) {
+    alert('Passwords do not match. Please try again.');
+    return;
   }
-});  
-    }
-    
- authAll()
+ 
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+  user.updatePassword(newPassword)
+    .then(() => {
+      alert('Password reset successfully.');
+        window.location.href = "account.html"
+    })
+    .catch((error) => {
+      console.error('Password reset error:', error.message);
+      alert('An error occurred while resetting the password.');
+    });
+}
+})
+})
+
     </script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
