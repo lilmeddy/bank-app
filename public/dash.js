@@ -309,7 +309,8 @@ function finalPay(){
                                     let closing = document.getElementById("closing")
                                     closing.addEventListener("click", () => {
                                         overlay.style.display = "none"
-                                        download.style.display = "none"
+                                        transferr.style.display = "none"
+                                        trans.style.display = "none"
                                     })
                                     raydee.textContent = ` ₦${newSenderBalance.toFixed(2)}`;
 
@@ -515,11 +516,11 @@ function myHistory() {
     }
 }
 
-
+finalPay()
 
 const overlay = document.querySelector('.overlay');
     function screeen(){
-        finalPay()
+       
       overlay.style.display = "block"
       download.style.display = "block"
         window.print()
